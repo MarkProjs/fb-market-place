@@ -81,7 +81,7 @@ port=5432
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'proejct_420_db',
+        'NAME': 'python_project2',
         'USER': user,
         'PASSWORD': password,
         'HOST': host,
