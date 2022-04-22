@@ -3,7 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 
 products = [
-    {
+        {
         'name': 'jeans',
         'brand': 'valentino',
         'description': 'straight leg blue jeans',
