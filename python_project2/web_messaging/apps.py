@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class WebmessagingappConfig(AppConfig):
+class WebMessagingConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'webmessagingapp'
+    name = 'web_messaging'
