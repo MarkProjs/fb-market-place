@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'user_management.apps.UserManagementConfig',
     'webadminapp.apps.WebadminappConfig',
     'store.apps.StoreConfig',
     'django.contrib.admin',
