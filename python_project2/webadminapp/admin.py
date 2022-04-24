@@ -13,5 +13,7 @@ item_manager1, created = User.objects.get_or_create(username='item_manager1', pa
 Admin_item_grp.user_set.add(item_manager1)
 
 Admin_super_grp, created = Group.objects.get_or_create(name='Admin_super_grp')
-nasr, created = User.objects.get_or_create(username='nasr', password='123')
-Admin_super_grp.user_set.add(nasr)
+if not User.objects.filter(username='nasr'):
+    nasr = User.objects.create_superuser(username='nasr', password='123')
+    Admin_super_grp.user_set.add(nasr)
+
