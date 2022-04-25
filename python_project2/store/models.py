@@ -1,6 +1,16 @@
 from django.db import models
+# # from django.contrib.auth.models import User
+# # owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=100)
+    owner = models.CharField(max_length=100, default="no owner")
+    name = models.CharField(max_length=100, default="no item name")
+    price = models.DecimalField(decimal_places=2, max_digits=6, default=0)
+    type = models.CharField(max_length=100, default="no item type")
+    description = models.TextField(default="no description")
+    comments = models.TextField(default="no comments")
+    likes = models.IntegerField(default=0)
+    size = models.CharField(max_length=100, default="no size")
+    details = models.TextField(default="no details")
 
