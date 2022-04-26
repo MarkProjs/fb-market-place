@@ -1,5 +1,5 @@
 from django.db import models
-# # from django.contrib.auth.models import User
+from django.contrib.auth.models import User
 # # owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
@@ -14,3 +14,5 @@ class Product(models.Model):
     size = models.CharField(max_length=100, default="no size")
     details = models.TextField(default="no details")
 
+    def __str__(self):
+        return self.name
