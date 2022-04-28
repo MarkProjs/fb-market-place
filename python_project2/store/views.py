@@ -34,7 +34,7 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
-        return seper().form_valid(form)
+        return super().form_valid(form)
 
 
 class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -49,7 +49,7 @@ class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         product = self.get_object()
         if self.request.user == product.owner:
             return True
-        return false
+        return False
 
 
 class ProductDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -60,7 +60,7 @@ class ProductDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         product = self.get_object()
         if self.request.user == product.owner:
             return True
-        return false
+        return False
 
 
 def about(request):
