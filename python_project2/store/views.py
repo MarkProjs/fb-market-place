@@ -6,6 +6,7 @@ from django.views.generic import (
     DetailView,
     CreateView,
     UpdateView,
+    DeleteView,
 )
 # Create your views here.
 
@@ -43,6 +44,17 @@ class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return seper().form_valid(form)
+
+    def test_func(self):
+        product = self.get_object()
+        if self.request.user == product.owner:
+            return True
+        return false
+
+
+class ProductDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Product
+    success_url = '/'
 
     def test_func(self):
         product = self.get_object()
