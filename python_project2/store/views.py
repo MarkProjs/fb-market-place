@@ -1,6 +1,12 @@
 from django.shortcuts import render
 from .models import Product
-from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+)
 # Create your views here.
 
 
@@ -21,9 +27,28 @@ class ProductDetailView(DetailView):
     model = Product
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     fields = ['name', 'description']
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return seper().form_valid(form)
+
+
+class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Product
+    fields = ['name', 'description']
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return seper().form_valid(form)
+
+    def test_func(self):
+        product = self.get_object()
+        if self.request.user == product.owner:
+            return True
+        return false
 
 
 def about(request):
