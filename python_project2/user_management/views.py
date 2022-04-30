@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.models import Group, User
 
+
 # Create your views here.
 def register(request):
     g = Group.objects.get(name='Members')
