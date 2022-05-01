@@ -7,8 +7,8 @@
           <small class="text-muted">{{ object.size }}</small>
             {% if object.owner == user %}
             <div>
-                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'product-update' %}">Update</a>
-                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'product-delete' %}">Delete</a>
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'product-update'  product.id%}">Update</a>
+                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'product-delete'  product.id %}">Delete</a>
             </div>
             {% endif %}
         </div>

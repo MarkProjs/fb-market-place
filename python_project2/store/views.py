@@ -43,7 +43,7 @@ class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
-        return seper().form_valid(form)
+        return super().form_valid(form)
 
     def test_func(self):
         product = self.get_object()
