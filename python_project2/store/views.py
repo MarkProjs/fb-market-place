@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Product
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.models import User
 from django.views.generic import (
     ListView,
     DetailView,
@@ -23,6 +24,17 @@ class ProductListView(ListView):
     template_name = 'store/home.html'
     context_object_name = 'products'
     paginate_by = 3
+
+
+class UserProductListView(ListView):
+    model = Product
+    template_name = 'store/user_products.html'
+    context_object_name = 'products'
+    paginate_by = 3
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Product.objects.filter(owner=user)
 
 
 class ProductDetailView(DetailView):
