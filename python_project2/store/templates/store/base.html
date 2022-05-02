@@ -1,4 +1,5 @@
 {% load static %}
+{% load user_extras %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,6 +30,9 @@
             <div class="navbar-nav mr-auto">
               <a class="nav-item nav-link" href="{% url 'store-home' %}">Home</a>
               <a class="nav-item nav-link" href="{% url 'store-about' %}">About</a>
+                {% if request.user|has_group:"Admin_user_grp" %}
+                    <a class="nav-item nav-link" href="{% url 'webadminapp-admin_dashboard' %}">Admin Dashboard</a>
+                {% endif %}
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
