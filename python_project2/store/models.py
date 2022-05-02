@@ -5,7 +5,8 @@ from django.urls import reverse
 
 
 class Product(models.Model):
-    owner = models.CharField(max_length=100, default="no owner")
+    # owner = models.CharField(max_length=100, default="no owner")
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, default="no item name")
     price = models.DecimalField(decimal_places=2, max_digits=6, default=0)
     type = models.CharField(max_length=100, default="no item type")
