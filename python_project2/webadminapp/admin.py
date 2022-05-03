@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group, Permission, User
 
-# Members Group
+# # Members Group
 Members, created = Group.objects.get_or_create(name='Members')
 
 # Admin_user
