@@ -17,7 +17,24 @@
           <form action="{% url 'like-product' product.pk %}" method="POST">
                   {% csrf_token %}
                   <button type="submit", name="product_id", value="{{ product.id }}", class="btn btn-primary btn-sm" >Like</button> - {{total_likes}}
-              </form>
+          </form>
+          <br/> <br/>
+          <h6> Comments </h6>
+
+          {% if not product.comments.all %}
+            <a href="#"> Add Comment </a>
+          {% else %}
+            {% for comment in product.comments.all %}
+                <strong>
+                    {{ comment.name }} - {{ comment.date_added }}
+                </strong>
+                    <br>
+                    {{ comment.body }}
+                    <br/> <br/>
+                    <hr>
+            {% endfor %}
+          {% endif %}
+
       </div>
     </article>
 {% endblock content %}
