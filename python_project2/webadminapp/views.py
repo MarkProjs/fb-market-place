@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.views.generic import DetailView
 from django.contrib.auth.decorators import user_passes_test
+from store.models import Product
 
 
 def group_required(*group_names):
@@ -15,18 +16,34 @@ def group_required(*group_names):
     return user_passes_test(in_groups, login_url='access-denied')
 
 
-# Create your views here.
-@group_required('Admin_user_grp', 'Admin_item_grp')
+@group_required('Admin_user_grp', 'Admin_item_grp', 'Admin_super_grp')
 def admin_dashboard(request):
     context = {
         'title': 'Admin Dashboard',
-        'users': User.objects.all()
     }
-
     return render(request, 'admin_dashboard.html', context)
 
 
-@group_required('Admin_user_grp')
+@group_required('Admin_user_grp', 'Admin_super_grp')
+def admin_manage_users(request):
+    context = {
+        'title': 'Manage Users',
+        'users': User.objects.all()
+    }
+
+    return render(request, 'admin_manage_users.html', context)
+
+
+@group_required('Admin_item_grp', 'Admin_super_grp')
+def admin_manage_items(request):
+    context = {
+        'title': 'Manage Items',
+        'products': Product.objects.all()
+    }
+    return render(request, 'admin_manage_items.html', context)
+
+
+@group_required('Admin_user_grp', 'Admin_super_grp')
 def confirm_block(request, pk):
     context = {
         'user': User.objects.get(id=pk)
@@ -40,7 +57,7 @@ def confirm_block(request, pk):
         elif action == "unblock":
             target.is_active = True
         target.save()
-        return redirect('webadminapp-admin-dashboard')
+        return redirect('webadminapp-manage-users')
     if context['user'].groups.filter(name="Members").exists():
         return render(request, 'admin_confirm_block.html', context)
     else:
