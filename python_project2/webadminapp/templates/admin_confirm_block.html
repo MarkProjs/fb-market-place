@@ -8,7 +8,7 @@
                 <h2> Are you sure you want to block "{{ user.username }}"</h2>
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-outline-danger" type="submit">Block</button>
+                <button class="btn btn-outline-danger" type="submit" name="target" value="block">Block</button>
                 <a class="btn btn-outline-secondary" href="{% url 'webadminapp-admin-dashboard' %}">Cancel</a>
             </div>
         </form>
