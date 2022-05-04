@@ -1,0 +1,18 @@
+{% extends "store/base.html" %}
+{% load user_extras %}
+{% block content %}
+    <h1> Manage Items </h1>
+    <p><a class="btn btn-outline-info" href="{% url 'webadminapp-admin-dashboard' %}">Back to Dashboard</a></p>
+    {% for product in products %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{% url 'user-products' product.owner.username %}">{{ product.owner }}</a>
+              <small class="text-muted">{{ product.size }}</small>
+            </div>
+            <h2><a class="article-title" href="{% url 'product-detail' product.id %}">{{ product.name }}</a></h2>-->
+            <p class="article-content">{{ product.description }}</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
