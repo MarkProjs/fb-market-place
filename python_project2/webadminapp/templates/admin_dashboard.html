@@ -16,10 +16,7 @@
               <h2><a class="article-title" href="">Active: {{ user.is_active }}</a></h2>
               <p class="article-content">Joined: {{user.date_joined}}
                   Last Login: {{ user.last_login }}</p>
-              <form method="post">
-                  {% csrf_token %}
-                  <button class=" btn btn-outline-info mb-4" name="target" value="{{ user.id }}">Block User</button>
-              </form>
+              <a class="btn btn-outline-danger" href="{% url 'webadminapp-confirm' user.id%}">Block</a>
           </div>
 
         </article>
