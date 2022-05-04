@@ -8,5 +8,13 @@ def admin_dashboard(request):
         'title': 'Admin Dashboard',
         'users': User.objects.all()
     }
+
     return render(request, 'admin_dashboard.html', context)
 
+
+def confirm_block(request):
+    context = {
+        'user': user
+    }
+
+    return render(request, 'admin_confirm_block.html', context)
