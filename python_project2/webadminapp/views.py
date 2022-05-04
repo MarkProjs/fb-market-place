@@ -16,7 +16,7 @@ def group_required(*group_names):
 
 
 # Create your views here.
-@group_required('Admin_user_grp')
+@group_required('Admin_user_grp', 'Admin_item_grp')
 def admin_dashboard(request):
     context = {
         'title': 'Admin Dashboard',
@@ -41,7 +41,10 @@ def confirm_block(request, pk):
             target.is_active = True
         target.save()
         return redirect('webadminapp-admin-dashboard')
-    return render(request, 'admin_confirm_block.html', context)
+    if context['user'].groups.filter(name="Members").exists():
+        return render(request, 'admin_confirm_block.html', context)
+    else:
+        return redirect('access-denied')
 
 
 def error_403(request):

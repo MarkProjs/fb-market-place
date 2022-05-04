@@ -2,23 +2,27 @@
 {% load user_extras %}
 {% block content %}
      <h1> Admin Dashboard </h1>
-     {% for user in users %}
-        <article class="media content-section">
+    {% if request.user|has_group:"Admin_user_grp" or request.user|has_group:"Admin_super_grp" %}
+         {% for user in users %}
+            <article class="media content-section">
 
-          <div class="media-body">
-            <div class="article-metadata">
-              <a class="mr-2" href="{% url 'user-products' user.username %}">{{ user.username }}{% if user|has_group:"Admin_super_grp" %}
-                    (Admin)
-                {% endif %}</a>
+              <div class="media-body">
+                <div class="article-metadata">
+                  <a class="mr-2" href="{% url 'user-products' user.username %}">{{ user.username }}{% if user|has_group:"Admin_super_grp" or user|has_group:"Admin_user_grp" or user|has_group:"Admin_item_grp" %}
+                        (Admin)
+                    {% endif %}</a>
 
-              <small class="text-muted">id: {{ user.id }}</small>
-            </div>
-              <h2><a class="article-title" href="">Active: {{ user.is_active }}</a></h2>
-              <p class="article-content">Joined: {{user.date_joined}}
-                  Last Login: {{ user.last_login }}</p>
-              <a class="btn btn-outline-danger" href="{% url 'webadminapp-confirm' user.id%}">{% if user.is_active %}Block{% else %}Unblock{% endif %}</a>
-          </div>
+                  <small class="text-muted">id: {{ user.id }}</small>
+                </div>
+                  <h2><a class="article-title" href="">Active: {{ user.is_active }}</a></h2>
+                  <p class="article-content">Joined: {{user.date_joined}}
+                      Last Login: {{ user.last_login }}</p>
+                  {% if user|has_group:"Members" %}
+                  <a class="btn btn-outline-danger" href="{% url 'webadminapp-confirm' user.id%}">{% if user.is_active %}Block{% else %}Unblock{% endif %}</a>
+                  {% endif %}
+              </div>
 
-        </article>
-    {% endfor %}
+            </article>
+        {% endfor %}
+    {% endif %}
 {% endblock content %}
