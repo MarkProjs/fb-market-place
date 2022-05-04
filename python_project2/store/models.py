@@ -12,9 +12,13 @@ class Product(models.Model):
     type = models.CharField(max_length=100, default="no item type")
     description = models.TextField(default="no description")
     comments = models.TextField(default="no comments")
-    likes = models.IntegerField(default=0)
+    likes = models.ManyToManyField(User, related_name="store_products")
     size = models.CharField(max_length=100, default="no size")
     details = models.TextField(default="no details")
+
+    def total_likes(self):
+        return self.likes.count()
+
 
     def __str__(self):
         return self.name
