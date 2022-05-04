@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from .models import Product
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy, reverse
 from django.views.generic import (
     ListView,
     DetailView,
@@ -40,6 +42,13 @@ class UserProductListView(ListView):
 class ProductDetailView(DetailView):
     model = Product
 
+    def get_context_data(self, *args, **kwargs):
+        # product_menu=Product.object.all()
+        context = super(ProductDetailView, self).get_context_data(*args, **kwargs)
+        prod = get_object_or_404(Product, id=self.kwargs['pk'])
+        total_likes = prod.total_likes()
+        context["total_likes"] = total_likes
+        return context
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
@@ -74,6 +83,12 @@ class ProductDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == product.owner:
             return True
         return False
+
+
+def LikeView(request, pk):
+    product = get_object_or_404(Product, id=request.POST.get('product_id'))
+    product .likes.add(request.user)
+    return HttpResponseRedirect(reverse('product-detail', args=[str(pk)]))
 
 
 def about(request):
