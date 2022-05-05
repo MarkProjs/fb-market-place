@@ -108,3 +108,13 @@ def about(request):
     return render(request, 'store/about.html', {'title': 'About'})
 
 
+def search_products(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        products = Product.objects.filter(name__contains=searched)
+
+        return render(request, 'store/search_products.html', {'searched': searched, 'products': products})
+
+    else:
+        return render(request, 'store/search_products.html', {})
+
