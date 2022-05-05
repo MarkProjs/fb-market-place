@@ -13,7 +13,8 @@
             {% endif %}
         </div>
         <h2 class="article-title">{{ object.name }}</h2>
-        <p class="article-content">{{ object.description }}</p>
+          <p class="article-content">{{ object.price }}</p>
+          <p class="article-content">{{ object.description }}</p>
           <form action="{% url 'like-product' product.pk %}" method="POST">
                   {% csrf_token %}
                   <button type="submit", name="product_id", value="{{ product.id }}", class="btn btn-primary btn-sm" >Like</button> - {{total_likes}}
