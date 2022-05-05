@@ -1,5 +1,6 @@
 {% extends "store/base.html" %}
 {% block content %}
+{% if user.is_authenticated %}
     <article class="media content-section">
       <div class="media-body">
         <div class="article-metadata">
@@ -44,4 +45,7 @@
 
       </div>
     </article>
+{% else %}
+Register to view details
+{% endif %}
 {% endblock content %}
