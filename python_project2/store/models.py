@@ -14,6 +14,7 @@ class Product(models.Model):
     likes = models.ManyToManyField(User, related_name="store_products")
     size = models.CharField(max_length=100, default="no size")
     # details = models.TextField(default="no details")
+    image = models.ImageField(null=True, blank=True, upload_to="images/")
 
     def total_likes(self):
         return self.likes.count()

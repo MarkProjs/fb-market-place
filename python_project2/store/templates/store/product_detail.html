@@ -14,6 +14,9 @@
             {% endif %}
         </div>
         <h2 class="article-title">{{ object.name }}</h2>
+           {% if product.image %}
+                <img src="{{ product.image.url }}">
+              {% endif %}
           <p class="article-content">{{ object.price }}</p>
           <p class="article-content">{{ object.description }}</p>
           <form action="{% url 'like-product' product.pk %}" method="POST">
