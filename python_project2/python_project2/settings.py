@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'user_management.apps.UserManagementConfig',
+    'web_messaging.apps.WebMessagingConfig',
     'crispy_forms',
     'webadminapp.apps.WebadminappConfig',
     'store.apps.StoreConfig',

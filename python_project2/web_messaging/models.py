@@ -8,3 +8,7 @@ class Message(models.Model):
     msg_body = models.CharField(max_length=1000)
     timestamp = models.DateTimeField(auto_now_add=True)
     unread = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f'{self.sender}: {self.msg_body[:20]} --> {self.receiver}'
+
