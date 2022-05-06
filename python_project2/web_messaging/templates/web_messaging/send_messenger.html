@@ -2,6 +2,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <div>
+        <h2>Send A Message</h2>
         <form method="POST">
             {% csrf_token %}
             {{ msg|crispy }}
