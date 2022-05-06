@@ -7,14 +7,18 @@
               <a class="mr-2" href="{% url 'user-products' product.owner.username %}">{{ product.owner }}</a>
               <small class="text-muted">{{ product.size }}</small>
             </div>
-            <h2><a class="article-title" href="{% url 'product-detail' product.id %}">{{ product.name }}</a></h2>-->
-            <p class="article-content">{{ product.description }}</p>
+            <h2><a class="article-title" href="{% url 'product-detail' product.id %}">{{ product.name }}</a></h2>
+              {% if product.image %}
+                <img src="{{ product.image.url }}">
+              {% endif %}
+              <p class="article-content">{{ product.price }}</p>
+              <p class="article-content">{{ product.description }}</p>
           </div>
         </article>
     {% endfor %}
     {% if is_paginated %}
         {% if page_obj.has_previous %}
-            <a class=" btn btn-outline-info mb-4" href="?page=1" > First</a>
+            <a class=" btn btn-outline-info mb-4" href="?page=1" > First </a>
             <a class=" btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}" > Previous</a>
         {% endif %}
 
