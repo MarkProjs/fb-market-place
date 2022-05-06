@@ -17,7 +17,10 @@
            {% if product.image %}
                 <img src="{{ product.image.url }}">
               {% endif %}
+          <p class="article-content">{{ object.type }}</p>
           <p class="article-content">{{ object.price }}</p>
+          <p class="article-content">{{ object.status }}</p>
+          <p class="article-content">{{ object.address }}</p>
           <p class="article-content">{{ object.description }}</p>
           <form action="{% url 'like-product' product.pk %}" method="POST">
                   {% csrf_token %}
