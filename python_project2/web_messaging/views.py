@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import CreateView
 from django.contrib.auth.models import User
 from .models import Message
@@ -15,12 +15,14 @@ class MessageView(CreateView):
 
     def get(self, request, *args, **kwargs):
         message_form = SendMessage()
-        return render(request, self.template_name, {'msg':message_form})
+        return render(request, self.template_name, {'msg': message_form})
 
     def post(self, request, *args, **kwargs):
         msg_form = SendMessage(request.POST)
-        receiver = msg_form.cleaned_data.get('receiver')
-        msg_body = msg_for.cleaned_data.get('body')
-        Message.objects.create(sender=request.user.username, receiver=receiver, msg_body=msg_body)
-        messages.success(request, f'Message sent to {receiver}')
+        if msg_form.is_valid():
+            receiver_name = msg_form.cleaned_data.get('receiver')
+            receiver = User.objects.get(username=receiver_name)
+            msg_body = msg_form.cleaned_data.get('message')
+            Message.objects.create(sender=request.user, receiver=receiver, message=msg_body)
+            messages.success(request, f'Message sent to {receiver}')
         return render(request, self.template_name, {'msg_form': msg_form})
