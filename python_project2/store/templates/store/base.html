@@ -33,7 +33,7 @@
             <div class="navbar-nav mr-auto">
               <a class="nav-item nav-link" href="{% url 'store-home' %}">Home</a>
               <a class="nav-item nav-link" href="{% url 'store-about' %}">About</a>
-                {% if request.user|has_group:"Admin_user_grp" or request.user|has_group:"Admin_item_grp" or request.user|has_group:"Admin_super_grp" %}
+                {# % if request.user|has_group:"Admin_user_grp" or request.user|has_group:"Admin_item_grp" or request.user|has_group:"Admin_super_grp" % #}
                     <a class="nav-item nav-link" href="{% url 'webadminapp-admin-dashboard' %}">Admin Dashboard</a> -->
 
           <a class="navbar-brand mr-4 title" href="{% url 'store-home' %}">Django Blog</a>
@@ -41,7 +41,7 @@
                 <li><a class="nav-item nav-link" href="{% url 'store-home' %}">Home</a></li>
                 <li><a class="nav-item nav-link" href="{% url 'store-about' %}">About</a></li>
                 {% if request.user|has_group:"Admin_user_grp" %}
-                    <li><a class="nav-item nav-link" href="{% url 'webadminapp-admin_dashboard' %}">Admin Dashboard</a></li>
+                    <li><a class="nav-item nav-link" href="{% url 'webadminapp-admin-dashboard' %}">Admin Dashboard</a></li>
 
                 {% endif %}
             </ul>
