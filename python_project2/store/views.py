@@ -1,3 +1,4 @@
+
 from django.shortcuts import render, get_object_or_404
 from .models import Product, Comment
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -54,7 +55,7 @@ class ProductDetailView(DetailView):
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
-    fields = ['name', 'price', 'size', 'description', 'image']
+    fields = ['type', 'name', 'address', 'status', 'price', 'size', 'description', 'image']
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
@@ -63,7 +64,7 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
 
 class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Product
-    fields = ['name', 'price', 'size', 'description', 'image']
+    fields = ['type', 'name', 'address', 'status', 'price', 'size', 'description', 'image']
 
     def form_valid(self, form):
         form.instance.owner = self.request.user

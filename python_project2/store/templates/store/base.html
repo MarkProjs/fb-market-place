@@ -1,3 +1,4 @@
+
 {% load static %}
 {% load user_extras %}
 <!DOCTYPE html>
@@ -37,6 +38,8 @@
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
                 {% if user.is_authenticated %}
+                    <a class="nav-item nav-link" href="{% url 'web_messaging_send' %}">Send Message</a>
+                    <a class="nav-item nav-link" href="{% url 'web_messaging_inbox' %}">Inbox</a>
                     <a class="nav-item nav-link" href="{% url 'product-create' %}">New Product</a>
                     <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
                     <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
