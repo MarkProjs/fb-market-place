@@ -1,5 +1,7 @@
+
 {% extends "store/base.html" %}
 {% block content %}
+{% if user.is_authenticated %}
     <article class="media content-section">
       <div class="media-body">
         <div class="article-metadata">
@@ -13,7 +15,45 @@
             {% endif %}
         </div>
         <h2 class="article-title">{{ object.name }}</h2>
-        <p class="article-content">{{ object.description }}</p>
+           {% if product.image %}
+                <img src="{{ product.image.url }}">
+              {% endif %}
+          <p class="article-content">{{ object.type }}</p>
+          <p class="article-content">{{ object.price }}</p>
+          <p class="article-content">{{ object.status }}</p>
+          <p class="article-content">{{ object.address }}</p>
+          <p class="article-content">{{ object.description }}</p>
+          <form action="{% url 'like-product' product.pk %}" method="POST">
+                  {% csrf_token %}
+                  <button type="submit", name="product_id", value="{{ product.id }}", class="btn btn-primary btn-sm" >Like</button> - {{total_likes}}
+          </form>
+          <br/> <br/>
+          <hr>
+          <h6> Comments </h6>
+
+          {% if not product.comments.all %}
+           No comment yet ...
+             <a href="{% url 'add-comment' product.pk %}"> Add Comment </a>
+              <br>
+          {% else %}
+
+            {% for comment in product.comments.all %}
+                <strong>
+                    {{ comment.name }} - {{ comment.date_added }}
+                </strong>
+                    <br>
+                    {{ comment.body }}
+                    <br/> <br/>
+                    <hr>
+            {% endfor %}
+              <a href="{% url 'add-comment' product.pk %}"> Add Comment </a>
+              <br>
+          {% endif %}
+
       </div>
     </article>
+{% else %}
+Register to view details
+{% endif %}
 {% endblock content %}
+
