@@ -6,6 +6,7 @@ from django.utils.decorators import method_decorator
 from store.models import Product
 from django.views.generic import (
     ListView,
+    DeleteView
 )
 
 
@@ -18,9 +19,6 @@ def group_required(*group_names):
         return False
 
     return user_passes_test(in_groups, login_url='access-denied')
-
-
-decorator = group_required()
 
 
 @group_required('Admin_user_grp', 'Admin_item_grp', 'Admin_super_grp')
@@ -63,13 +61,13 @@ class AdminListItems(ListView):
         return super().dispatch(*args, **kwargs)
 
 
-@group_required('Admin_item_grp', 'Admin_super_grp')
-def admin_manage_items(request):
-    context = {
-        'title': 'Manage Items',
-        'products': Product.objects.all()
-    }
-    return render(request, 'admin_manage_items.html', context)
+class AdminDeleteItem(DeleteView):
+    model = Product
+    success_url = '/webadminapp/manage_items'
+
+    @method_decorator(group_required('Admin_item_grp', 'Admin_super_grp'))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
 
 
 @group_required('Admin_user_grp', 'Admin_super_grp')
