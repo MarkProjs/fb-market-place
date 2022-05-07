@@ -2,7 +2,13 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.views.generic import DetailView
 from django.contrib.auth.decorators import user_passes_test
+from django.utils.decorators import method_decorator
 from store.models import Product
+from django.views.generic import (
+    ListView,
+    DeleteView,
+    UpdateView
+)
 
 
 def group_required(*group_names):
@@ -24,23 +30,59 @@ def admin_dashboard(request):
     return render(request, 'admin_dashboard.html', context)
 
 
-@group_required('Admin_user_grp', 'Admin_super_grp')
-def admin_manage_users(request):
-    context = {
-        'title': 'Manage Users',
-        'users': User.objects.all()
-    }
+class AdminListUsers(ListView):
+    queryset = User.objects.filter(groups__name='Members')
+    template_name = 'admin_manage_users.html'
+    paginate_by = 3
+    context_object_name = 'users'
 
-    return render(request, 'admin_manage_users.html', context)
+    def get_context_data(self, *args, **kwargs):
+        context = super(AdminListUsers, self).get_context_data(*args, **kwargs)
+        context["title"] = 'Admin Manage Users'
+        return context
+
+    @method_decorator(group_required('Admin_user_grp', 'Admin_super_grp'))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
 
 
-@group_required('Admin_item_grp', 'Admin_super_grp')
-def admin_manage_items(request):
-    context = {
-        'title': 'Manage Items',
-        'products': Product.objects.all()
-    }
-    return render(request, 'admin_manage_items.html', context)
+class AdminListItems(ListView):
+    model = Product
+    template_name = 'admin_manage_items.html'
+    context_object_name = 'products'
+    paginate_by = 3
+    ordering = ['id']
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(AdminListItems, self).get_context_data(*args, **kwargs)
+        context["title"] = 'Admin Manage Items'
+        return context
+
+    @method_decorator(group_required('Admin_item_grp', 'Admin_super_grp'))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+
+class AdminDeleteItem(DeleteView):
+    model = Product
+    success_url = '/webadminapp/manage_items'
+
+    @method_decorator(group_required('Admin_item_grp', 'Admin_super_grp'))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+
+class AdminUpdateItem(UpdateView):
+    model = Product
+    fields = ['type', 'name', 'address', 'status', 'price', 'size', 'description', 'image']
+    success_url = '/webadminapp/manage_items'
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    @method_decorator(group_required('Admin_item_grp', 'Admin_super_grp'))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
 
 
 @group_required('Admin_user_grp', 'Admin_super_grp')
@@ -66,3 +108,4 @@ def confirm_block(request, pk):
 
 def error_403(request):
     return render(request, 'access_denied.html')
+

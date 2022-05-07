@@ -10,7 +10,7 @@
             </fieldset>
             <div class="form-group">
                 <button class="btn btn-outline-danger" type="submit" name="target" value="block">Block</button>
-                <a class="btn btn-outline-secondary" href="{% url 'webadminapp-admin-dashboard' %}">Cancel</a>
+                <a class="btn btn-outline-secondary" href="{% url 'webadminapp-manage-users' %}">Cancel</a>
             </div>
             {% else %}
             <fieldset class="form-group">
@@ -19,7 +19,7 @@
                 </fieldset>
                 <div class="form-group">
                     <button class="btn btn-outline-danger" type="submit" name="target" value="unblock">Unblock</button>
-                    <a class="btn btn-outline-secondary" href="{% url 'webadminapp-admin-dashboard' %}">Cancel</a>
+                    <a class="btn btn-outline-secondary" href="{% url 'webadminapp-manage-users' %}">Cancel</a>
                 </div>
             {% endif %}
 
