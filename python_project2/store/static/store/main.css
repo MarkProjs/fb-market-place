@@ -195,6 +195,16 @@ margin-bottom: 1rem;
   border-color: #17a2b8;
 }
 
+.pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination a {
+    margin-right: 2px;
+    margin-left: 2px;
+}
+
 .disabled {
   color: #fff;
   background-color: gray;
