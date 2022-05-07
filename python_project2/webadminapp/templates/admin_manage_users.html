@@ -18,7 +18,7 @@
                   <p class="article-content">Joined: {{user.date_joined}}
                       Last Login: {{ user.last_login }}</p>
                   {% if user|has_group:"Members" %}
-                  <a class="btn btn-outline-danger" href="{% url 'webadminapp-confirm' user.id%}">{% if user.is_active %}Block{% else %}Unblock{% endif %}</a>
+                  <a class="btn block-btn" href="{% url 'webadminapp-confirm' user.id%}">{% if user.is_active %}Block{% else %}Unblock{% endif %}</a>
                   {% endif %}
               </div>
 
