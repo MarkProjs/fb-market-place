@@ -11,4 +11,4 @@ class Message(models.Model):
     unread = models.BooleanField(default=True)
 
     def __str__(self):
-        return f'from {self.sender}: {self.message[:20]}... --> {self.receiver}'
+        return f'{self.unread} | from {self.sender}: {self.message[:10]} | to: {self.receiver} | {self.timestamp}'

@@ -1,10 +1,16 @@
 {% extends "store/base.html" %}
 {% block content %}
-    <h2>Inbox</h2>
-    {% for messa in view_message %}
-        <fieldset>
-            <p>{{ messa.sender }}</p>
-            <p>{{ messa.message }}</p>
-        </fieldset>
-    {% endfor %}
+    <h1> Inbox </h1>
+         {% for mess in view_message %}
+            <article class="media content-section">
+              <div class="media-body">
+                <div class="article-metadata">
+                  <h4>{{ mess.sender }}</h4>
+                  <small class="text-muted">{{ mess.timestamp }}</small>
+                </div>
+                  <h6>Message: </h6>
+                  <p class="article-content">{{ mess.message }}</p>
+              </div>
+            </article>
+        {% endfor %}
 {% endblock content %}
