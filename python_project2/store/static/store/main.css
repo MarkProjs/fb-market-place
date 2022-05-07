@@ -195,6 +195,18 @@ margin-bottom: 1rem;
   border-color: #17a2b8;
 }
 
+.disabled {
+  color: #fff;
+  background-color: gray;
+  background-image: none;
+  border-color: gray;
+  opacity: 0.2;
+}
+
+.disabled:hover {
+    cursor: default;
+}
+
 .block-btn:active, .block-btn:hover {
   color: #fff;
   background-color: #dc3545;
