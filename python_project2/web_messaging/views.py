@@ -25,6 +25,7 @@ class MessageView(CreateView):
             msg_body = msg_form.cleaned_data.get('message')
             Message.objects.create(sender=request.user, receiver=receiver, message=msg_body)
             messages.success(request, f'Message sent to {receiver}')
+            return redirect('web_messaging_send')
         return render(request, self.template_name, {'msg_form': msg_form})
 
 
