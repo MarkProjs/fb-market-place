@@ -8,9 +8,9 @@
           <div class="media-body">
             <div class="article-metadata">
               <a class="mr-2" href="{% url 'user-products' product.owner.username %}">{{ product.owner }}</a>
-              <small class="text-muted">{{ product.size }}</small>
+              <small class="text-muted">Item id: {{ product.id }}</small>
             </div>
-            <h2><a class="article-title" href="{% url 'product-detail' product.id %}">{{ product.name }}</a></h2>-->
+            <h2><a class="article-title" href="{% url 'product-detail' product.id %}">{{ product.name }}</a></h2>
             <p class="article-content">{{ product.description }}</p>
           </div>
         </article>
