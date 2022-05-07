@@ -6,7 +6,8 @@ from django.utils.decorators import method_decorator
 from store.models import Product
 from django.views.generic import (
     ListView,
-    DeleteView
+    DeleteView,
+    UpdateView
 )
 
 
@@ -50,6 +51,7 @@ class AdminListItems(ListView):
     template_name = 'admin_manage_items.html'
     context_object_name = 'products'
     paginate_by = 3
+    ordering = ['id']
 
     def get_context_data(self, *args, **kwargs):
         context = super(AdminListItems, self).get_context_data(*args, **kwargs)
@@ -64,6 +66,19 @@ class AdminListItems(ListView):
 class AdminDeleteItem(DeleteView):
     model = Product
     success_url = '/webadminapp/manage_items'
+
+    @method_decorator(group_required('Admin_item_grp', 'Admin_super_grp'))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+
+class AdminUpdateItem(UpdateView):
+    model = Product
+    fields = ['type', 'name', 'address', 'status', 'price', 'size', 'description', 'image']
+    success_url = '/webadminapp/manage_items'
+
+    def form_valid(self, form):
+        return super().form_valid(form)
 
     @method_decorator(group_required('Admin_item_grp', 'Admin_super_grp'))
     def dispatch(self, *args, **kwargs):
