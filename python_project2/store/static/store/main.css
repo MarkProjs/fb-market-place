@@ -102,6 +102,44 @@ header ul li a:hover {
     color: #fff;
 }
 
+form {
+    display: flex !important;
+    margin-left: 25px;
+}
+
+input[type="search"]{
+  padding: .375rem .75rem;
+font-size: 0.85rem;
+line-height: 1.5;
+color: #495057;
+background-clip: padding-box;
+border: 1px solid #ced4da;
+border-radius: .15rem;
+transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+outline-offset: -2px;
+-webkit-appearance: none;
+height: 25px;
+display: inline-block;
+border: none;
+  border-bottom-color: currentcolor;
+  border-bottom-style: none;
+  border-bottom-width: medium;
+outline: none;
+color: #555;
+width: 100px;
+background: none;
+border-bottom: 1px solid #BBB;
+
+}
+
+input[type="search"]:focus:hover {
+}
+
+input[type="search"]:focus {
+
+  cursor: text;
+}
+
 main    {
 max-width:
     width: 100%;
