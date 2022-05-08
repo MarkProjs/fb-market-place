@@ -23,13 +23,12 @@
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="container">
-          <a class="navbar-brand mr-4" href="{% url 'store-home' %}">Django Blog</a>
+          <a class="navbar-brand mr-4" href="{% url 'store-home' %}">Home</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="{% url 'store-home' %}">Home</a>
               <a class="nav-item nav-link" href="{% url 'store-about' %}">About</a>
                 {% if request.user|has_group:"Admin_user_grp" or request.user|has_group:"Admin_item_grp" or request.user|has_group:"Admin_super_grp" %}
                     <a class="nav-item nav-link" href="{% url 'webadminapp-admin-dashboard' %}">Admin Dashboard</a>
@@ -39,8 +38,7 @@
             <div class="navbar-nav">
                 {% if user.is_authenticated %}
                     <a class="nav-item nav-link" href="{% url 'product-create' %}">New Product</a>
-                    <a class="nav-item nav-link" href="{% url 'web_messaging_send' %}">Send Message</a>
-                    <a class="nav-item nav-link" href="{% url 'web_messaging_inbox' %}">Inbox</a>
+                    <a class="nav-item nav-link" href="{% url 'web_messaging_inbox' %}">Messages {% if new_messages > 0 %}({{ new_messages }}){% endif %}</a>
                     <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
                     <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
                 {% else %}

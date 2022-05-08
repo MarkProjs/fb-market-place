@@ -1,5 +1,6 @@
 
 from django.shortcuts import render, get_object_or_404
+from web_messaging.models import Message
 from .models import Product, Comment
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
@@ -18,7 +19,7 @@ from django.views.generic import (
 
 def home(request):
     context = {
-        'products': Product.objects.all()
+        'products': Product.objects.all(),
     }
     return render(request, 'store/home.html', context)
 
@@ -28,6 +29,11 @@ class ProductListView(ListView):
     template_name = 'store/home.html'
     context_object_name = 'products'
     paginate_by = 3
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ProductListView, self).get_context_data(*args, **kwargs)
+        context["new_messages"] = Message.objects.filter(receiver=self.request.user, unread=True).count()
+        return context
 
 
 class UserProductListView(ListView):
