@@ -140,6 +140,21 @@ input[type="search"]:focus {
   cursor: text;
 }
 
+form .search {
+    display: inline-block;
+    color: #585858;
+    font-weight: 400;
+
+    transition: 0.5s;
+
+    text-align: center;
+    position: relative;
+
+    padding: 0
+
+
+}
+
 main    {
 max-width:
     width: 100%;
