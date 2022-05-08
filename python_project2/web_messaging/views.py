@@ -31,7 +31,7 @@ class MessageView(CreateView):
 
 def inbox(request):
     context = {
-        'view_message': Message.objects.all().filter(receiver__username__contains=request.user)
+        'view_message': Message.objects.all().filter(receiver__username__contains=request.user).order_by('-timestamp')
     }
     if request.method == "GET":
         target = context['view_message']
