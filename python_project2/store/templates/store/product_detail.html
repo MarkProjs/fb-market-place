@@ -28,6 +28,13 @@
                   <button type="submit", name="product_id", value="{{ product.id }}", class="btn btn-primary btn-sm" >Like</button> - {{total_likes}}
           </form>
           <br/> <br/>
+
+           <form action="{% url 'flag-product' product.pk %}" method="POST">
+                  {% csrf_token %}
+                  <button type="submit", name="product_id"- {{total_likes}}, value="{{ product.id }}" > Flag </button> - {{total_flags}}
+          </form>
+          <br/> <br/>
+
           <hr>
           <h6> Comments </h6>
 

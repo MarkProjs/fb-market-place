@@ -49,7 +49,9 @@ class ProductDetailView(DetailView):
         context = super(ProductDetailView, self).get_context_data(*args, **kwargs)
         prod = get_object_or_404(Product, id=self.kwargs['pk'])
         total_likes = prod.total_likes()
+        total_flags = prod.total_flags()
         context["total_likes"] = total_likes
+        context["total_flags"] = total_flags
         return context
 
 
@@ -119,3 +121,8 @@ def search_products(request):
     else:
         return render(request, 'store/search_products.html', {})
 
+
+def FlagView(request, pk):
+    product = get_object_or_404(Product, id=request.POST.get('product_id'))
+    product .flags.add(request.user)
+    return HttpResponseRedirect(reverse('product-detail', args=[str(pk)]))
