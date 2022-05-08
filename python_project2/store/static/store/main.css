@@ -5,15 +5,11 @@
     font-family: 'Poppins', sans-serif;
 }
 
-html, body {
-    height: 100%;
-    min-height: 100%;
-}
-
 body {
   color: #333333;
   margin-top: 5rem;
   line-height: 1.5;
+  height: 100%;
 }
 
 .bg {
