@@ -31,11 +31,12 @@ class MessageView(CreateView):
 
 def inbox(request):
     context = {
-        'view_message': Message.objects.all().filter(receiver__username__contains=request.user)
+        'view_message': Message.objects.all().filter(receiver__username__contains=request.user).order_by('-timestamp')
     }
+    if request.method == "GET":
+        target = context['view_message']
+        for i in target:
+            if i.unread:
+                i.unread = False
+                i.save()
     return render(request, 'web_messaging/inbox.html', context)
-# class MessageListView(ListView):
-#     model = Message
-#     template_name = 'web_messaging/inbox.html'
-
-

@@ -17,15 +17,17 @@ class Product(models.Model):
     image = models.ImageField(null=True, blank=True, upload_to="images/")
     address = models.CharField(max_length=500, default="no address")
     status = models.CharField(max_length=100, default="new")
+    flags = models.ManyToManyField(User, related_name="flag_products")
     # rate
 
     def total_likes(self):
         return self.likes.count()
 
+    def total_flags(self):
+        return self.flags.count()
 
     def __str__(self):
         return self.name
-
 
     def get_absolute_url(self):
         return reverse('product-detail', kwargs={'pk': self.pk})
