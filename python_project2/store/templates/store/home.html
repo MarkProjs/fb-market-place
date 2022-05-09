@@ -1,9 +1,5 @@
 {% extends "store/base.html" %}
 {% block content %}
-<!--        <form method="get">-->
-<!--            {{ filtered_products.form.as_p }}-->
-<!--            <input type="submit" value="Press">-->
-<!--        </form>-->
     {% load store_extras %}
         <div class="dropdown">
           <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
@@ -11,10 +7,11 @@
           </button>
           <ul class="dropdown-menu">
             {% with params=request.GET.urlencode %}
+<!--              add params after 'ordering' if needed-->
               <li><a href="{% my_url 'name' 'ordering' %}">Name (a-z)</a></li>
-              <li><a href="{% my_url '-name' 'ordering' params %}">Name (z-a)</a></li>
-              <li><a href="{% my_url 'price' 'ordering' params %}">Price (asc)</a></li>
-              <li><a href="{% my_url '-price' 'ordering' params %}">Price (desc)</a></li>
+              <li><a href="{% my_url '-name' 'ordering' %}">Name (z-a)</a></li>
+              <li><a href="{% my_url 'price' 'ordering' %}">Price (asc)</a></li>
+              <li><a href="{% my_url '-price' 'ordering' %}">Price (desc)</a></li>
             {% endwith %}
           </ul>
         </div>
