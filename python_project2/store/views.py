@@ -104,6 +104,7 @@ class AddCommentView(CreateView):
 
     def form_valid(self, form):
         form.instance.product_id = self.kwargs['pk']
+        form.instance.name = self.request.user
         return super().form_valid(form)
 
 
