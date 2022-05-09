@@ -11,7 +11,7 @@
           </button>
           <ul class="dropdown-menu">
             {% with params=request.GET.urlencode %}
-              <li><a href="{% my_url 'name' 'ordering' params %}">Name (a-z)</a></li>
+              <li><a href="{% my_url 'name' 'ordering' %}">Name (a-z)</a></li>
               <li><a href="{% my_url '-name' 'ordering' params %}">Name (z-a)</a></li>
               <li><a href="{% my_url 'price' 'ordering' params %}">Price (asc)</a></li>
               <li><a href="{% my_url '-price' 'ordering' params %}">Price (desc)</a></li>

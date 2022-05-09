@@ -14,6 +14,9 @@ from django.views.generic import (
     DeleteView,
 )
 from .filters import ProductFilter
+from django.shortcuts import redirect
+
+
 # Create your views here.
 
 
