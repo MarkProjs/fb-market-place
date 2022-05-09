@@ -46,7 +46,7 @@
 
             {% for comment in product.comments.all %}
                 <strong>
-                    {{ comment.name }} - {{ comment.date_added }}
+                    {{ comment.name }} - {{ comment.date_added }} - {{ comment.rating }}⭐
                 </strong>
                     <br>
                     {{ comment.body }}
