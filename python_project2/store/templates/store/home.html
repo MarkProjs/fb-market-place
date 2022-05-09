@@ -4,6 +4,20 @@
 <!--            {{ filtered_products.form.as_p }}-->
 <!--            <input type="submit" value="Press">-->
 <!--        </form>-->
+    {% load store_extras %}
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+            Order by
+          </button>
+          <ul class="dropdown-menu">
+            {% with params=request.GET.urlencode %}
+              <li><a href="{% my_url 'name' 'ordering' params %}">Name (a-z)</a></li>
+              <li><a href="{% my_url '-name' 'ordering' params %}">Name (z-a)</a></li>
+              <li><a href="{% my_url 'price' 'ordering' params %}">Price (asc)</a></li>
+              <li><a href="{% my_url '-price' 'ordering' params %}">Price (desc)</a></li>
+            {% endwith %}
+          </ul>
+        </div>
         {# % for product in products % #}
          {% for product in object_list %}
         <article class="media content-section">
@@ -21,20 +35,6 @@
           </div>
         </article>
     {% endfor %}
-    {% load store_extras %}
-    <div class="dropdown">
-      <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-        Order by
-      </button>
-      <ul class="dropdown-menu">
-        {% with params=request.GET.urlencode %}
-          <li><a href="{% my_url 'name' 'ordering' params %}">Name (a-z)</a></li>
-          <li><a href="{% my_url '-name' 'ordering' params %}">Name (z-a)</a></li>
-          <li><a href="{% my_url 'price' 'ordering' params %}">Price (asc)</a></li>
-          <li><a href="{% my_url '-price' 'ordering' params %}">Price (desc)</a></li>
-        {% endwith %}
-      </ul>
-    </div>
 
     {% if is_paginated %}
         {% if page_obj.has_previous %}
