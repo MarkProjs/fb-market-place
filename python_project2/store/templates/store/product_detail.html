@@ -35,6 +35,8 @@
           </form>
           <br/> <br/>
 
+          <h5> Ratings: {{ avg_rating }}⭐</h5>
+
           <hr>
           <h6> Comments </h6>
 
@@ -46,7 +48,7 @@
 
             {% for comment in product.comments.all %}
                 <strong>
-                    {{ comment.name }} - {{ comment.date_added }}
+                    {{ comment.name }} - {{ comment.date_added }} - {{ comment.rating }}⭐
                 </strong>
                     <br>
                     {{ comment.body }}
