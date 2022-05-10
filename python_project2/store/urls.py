@@ -25,7 +25,6 @@ urlpatterns = [
     path('product/<int:pk>/comment', AddCommentView.as_view(), name='add-comment'),
     path('search_products/', views.search_products, name='search-products'),
     path('flag/<int:pk>/', FlagView, name='flag-product'),
-
 ]
 
 

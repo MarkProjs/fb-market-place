@@ -1,4 +1,3 @@
-
 from django.shortcuts import render, get_object_or_404
 from web_messaging.models import Message
 from .models import Product, Comment
@@ -15,6 +14,10 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
+from .filters import ProductFilter
+from django.shortcuts import redirect
+
+
 # Create your views here.
 
 
@@ -22,6 +25,19 @@ def home(request):
     context = {
         'products': Product.objects.all(),
     }
+
+    # filtered_products = ProductFilter(
+    #     request.GET,
+    #     queryset=Product.objects.all()
+    # )
+    #
+    # context['filtered_products'] = filtered_products
+
+    # paginated_filtered_products = Paginator(filtered_products.qs, 2)
+    # page_number = self.request.get('page')
+    # page_obj = paginated_filtered_products.get_page(self, page_number)
+    # context['page_obj'] = page_obj
+
     return render(request, 'store/home.html', context)
 
 
@@ -35,7 +51,16 @@ class ProductListView(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super(ProductListView, self).get_context_data(*args, **kwargs)
         context["new_messages"] = Message.objects.filter(receiver=self.request.user, unread=True).count()
+        context['filtered_products'] = ProductFilter(self.request.GET, queryset=self.get_queryset())
+        # paginated_filtered_products = Paginator(filtered_products.qs, 2)
+        # page_number = self.request.get('page')
+        # page_obj = paginated_filtered_products.get_page(self, page_number)
+        # context['page_obj'] = page_obj
         return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return ProductFilter(self.request.GET, queryset=queryset).qs
 
 
 class UserProductListView(ListView):
@@ -123,7 +148,7 @@ class AddCommentView(CreateView):
 
 def LikeView(request, pk):
     product = get_object_or_404(Product, id=request.POST.get('product_id'))
-    product .likes.add(request.user)
+    product.likes.add(request.user)
     return HttpResponseRedirect(reverse('product-detail', args=[str(pk)]))
 
 
@@ -144,5 +169,5 @@ def search_products(request):
 
 def FlagView(request, pk):
     product = get_object_or_404(Product, id=request.POST.get('product_id'))
-    product .flags.add(request.user)
+    product.flags.add(request.user)
     return HttpResponseRedirect(reverse('product-detail', args=[str(pk)]))
