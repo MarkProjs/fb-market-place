@@ -2,7 +2,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
-# # owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class Product(models.Model):
@@ -13,12 +12,10 @@ class Product(models.Model):
     description = models.TextField(default="no description")
     likes = models.ManyToManyField(User, related_name="store_products")
     size = models.CharField(max_length=100, default="no size")
-    # details = models.TextField(default="no details")
     image = models.ImageField(null=True, blank=True, upload_to="images/")
     address = models.CharField(max_length=500, default="no address")
     status = models.CharField(max_length=100, default="new")
     flags = models.ManyToManyField(User, related_name="flag_products")
-    # rate
 
     def total_likes(self):
         return self.likes.count()
