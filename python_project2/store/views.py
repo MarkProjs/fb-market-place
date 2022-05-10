@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from .forms import CommentForm
+from django.db.models import Sum, Avg
 from django.views.generic import (
     ListView,
     DetailView,
@@ -29,6 +30,7 @@ class ProductListView(ListView):
     template_name = 'store/home.html'
     context_object_name = 'products'
     paginate_by = 3
+    ordering = ['id']
 
     def get_context_data(self, *args, **kwargs):
         context = super(ProductListView, self).get_context_data(*args, **kwargs)
@@ -58,6 +60,7 @@ class ProductDetailView(DetailView):
         total_flags = prod.total_flags()
         context["total_likes"] = total_likes
         context["total_flags"] = total_flags
+        context["avg_rating"] = prod.rate
         return context
 
 
@@ -105,6 +108,16 @@ class AddCommentView(CreateView):
     def form_valid(self, form):
         form.instance.product_id = self.kwargs['pk']
         form.instance.name = self.request.user
+
+        prod = get_object_or_404(Product, id=self.kwargs['pk'])
+        if Comment.objects.filter(product=prod).exists():
+            sum_rating = Comment.objects.filter(product=prod).aggregate(Sum('rating'))
+            count_rating = Comment.objects.filter(product=prod).count() + 1
+            avg_rating = (float(sum_rating['rating__sum']) + float(form.instance.rating)) / float(count_rating)
+            prod.rate = avg_rating
+        else:
+            prod.rate = form.instance.rating
+        prod.save()
         return super().form_valid(form)
 
 

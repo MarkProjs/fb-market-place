@@ -1,7 +1,8 @@
-
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+
+
 # # owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
@@ -18,7 +19,7 @@ class Product(models.Model):
     address = models.CharField(max_length=500, default="no address")
     status = models.CharField(max_length=100, default="new")
     flags = models.ManyToManyField(User, related_name="flag_products")
-    # rate
+    rate = models.DecimalField(decimal_places=1, max_digits=2, default=0)
 
     def total_likes(self):
         return self.likes.count()
