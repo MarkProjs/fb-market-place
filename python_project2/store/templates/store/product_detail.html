@@ -23,6 +23,8 @@
           <p class="article-content">{{ object.status }}</p>
           <p class="article-content">{{ object.address }}</p>
           <p class="article-content">{{ object.description }}</p>
+
+          {% if object.owner != user %}
           <form action="{% url 'like-product' product.pk %}" method="POST">
                   {% csrf_token %}
                   <button type="submit", name="product_id", value="{{ product.id }}", class="btn btn-primary btn-sm" >Like</button> - {{total_likes}}
@@ -34,7 +36,7 @@
                   <button type="submit", name="product_id", value="{{ product.id }}" > Flag </button> - {{total_flags}}
           </form>
           <br/> <br/>
-
+            {% endif %}
           <h5> Ratings: {{ avg_rating }}⭐</h5>
 
           <hr>
@@ -63,6 +65,7 @@
     </article>
 {% else %}
 Register to view details
+    <a href="http://127.0.0.1:8000/register/"> </a>
 {% endif %}
 {% endblock content %}
 
