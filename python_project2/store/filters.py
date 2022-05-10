@@ -7,7 +7,7 @@ class ProductFilter(django_filters.FilterSet):
 
     CHOICES = (
         ('price', 'Price Asc'),
-        ('-price', 'Price Asc'),
+        ('-price', 'Price Desc'),
         ('name', 'Name A-Z'),
         ('-name', 'Name Z-A'),
     )

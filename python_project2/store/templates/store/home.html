@@ -20,7 +20,7 @@
         <article class="media content-section">
           <div class="media-body">
             <div class="article-metadata">
-              <a class="mr-2" href="{% url 'user-products' product.owner.username %}">{{ product.owner }}</a>
+              <a class="mr-2" href="{% url 'user-products' product.owner.username %}">{{ product.owner }} likes: {{ product.total_likes }}</a>
               <small class="text-muted">{{ product.size }}</small>
             </div>
             <h2><a class="article-title" href="{% url 'product-detail' product.id %}">{{ product.name }}</a></h2>
