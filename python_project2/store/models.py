@@ -3,9 +3,6 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 
-# # owner = models.ForeignKey(User, on_delete=models.CASCADE)
-
-
 class Product(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     type = models.CharField(max_length=100, default="no item type")
@@ -14,7 +11,6 @@ class Product(models.Model):
     description = models.TextField(default="no description")
     likes = models.ManyToManyField(User, related_name="store_products")
     size = models.CharField(max_length=100, default="no size")
-    # details = models.TextField(default="no details")
     image = models.ImageField(null=True, blank=True, upload_to="images/")
     address = models.CharField(max_length=500, default="no address")
     status = models.CharField(max_length=100, default="new")

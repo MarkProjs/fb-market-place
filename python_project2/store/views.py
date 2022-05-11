@@ -50,7 +50,8 @@ class ProductListView(ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ProductListView, self).get_context_data(*args, **kwargs)
-        context["new_messages"] = Message.objects.filter(receiver=self.request.user, unread=True).count()
+        if self.request.user.is_authenticated:
+            context["new_messages"] = Message.objects.filter(receiver=self.request.user, unread=True).count()
         context['filtered_products'] = ProductFilter(self.request.GET, queryset=self.get_queryset())
         # paginated_filtered_products = Paginator(filtered_products.qs, 2)
         # page_number = self.request.get('page')
