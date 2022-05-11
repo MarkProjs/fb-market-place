@@ -9,6 +9,7 @@ from .views import (
     UserProductListView,
     LikeView,
     AddCommentView,
+    FlagView,
 )
 from . import views
 
@@ -23,7 +24,7 @@ urlpatterns = [
     path('like/<int:pk>/', LikeView, name='like-product'),
     path('product/<int:pk>/comment', AddCommentView.as_view(), name='add-comment'),
     path('search_products/', views.search_products, name='search-products'),
-
+    path('flag/<int:pk>/', FlagView, name='flag-product'),
 ]
 
 

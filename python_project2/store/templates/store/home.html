@@ -1,6 +1,22 @@
 {% extends "store/base.html" %}
 {% block content %}
-    {% for product in products %}
+    {% load store_extras %}
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+            Order by
+          </button>
+          <ul class="dropdown-menu">
+            {% with params=request.GET.urlencode %}
+<!--              add params after 'ordering' if needed-->
+              <li><a href="{% my_url 'name' 'ordering' %}">Name (a-z)</a></li>
+              <li><a href="{% my_url '-name' 'ordering' %}">Name (z-a)</a></li>
+              <li><a href="{% my_url 'price' 'ordering' %}">Price (asc)</a></li>
+              <li><a href="{% my_url '-price' 'ordering' %}">Price (desc)</a></li>
+            {% endwith %}
+          </ul>
+        </div>
+        {# % for product in products % #}
+         {% for product in object_list %}
         <article class="media content-section">
           <div class="media-body">
             <div class="article-metadata">
@@ -16,11 +32,12 @@
           </div>
         </article>
     {% endfor %}
+
     {% if is_paginated %}
     <div class="pagination">
         {% if page_obj.has_previous %}
-            <a class=" btn btn-outline-info mb-4" href="?page=1" > « </a>
-            <a class=" btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}" > ‹ </a>
+            <a class=" btn btn-outline-info mb-4" href="{% my_url 1 'page' request.GET.urlencode %}" > « </a>
+            <a class=" btn btn-outline-info mb-4" href="{% my_url page_obj.previous_page_number 'page' request.GET.urlencode %}" > ‹ </a>
         {% else %}
             <a class=" btn btn-outline-info mb-4 disabled" > « </a>
             <a class=" btn btn-outline-info mb-4 disabled" > ‹ </a>
@@ -29,16 +46,16 @@
         <div class="pages">
         {% for num in page_obj.paginator.page_range %}
             {% if page_obj.number == num %}
-                <a class="btn btn-info mb-4 currently" href="?page={{ num }}">{{ num }}</a>
+                <a class="btn btn-info mb-4 currently" href="{% my_url num 'page' request.GET.urlencode %}">{{ num }}</a>
             {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                <a class="btn btn-outline-info mb-4" href="?page={{ num }}" > {{ num }}</a>
+                <a class="btn btn-outline-info mb-4" href="{% my_url num 'page' request.GET.urlencode %}" > {{ num }}</a>
             {% endif %}
         {% endfor %}
         </div>
 
          {% if page_obj.has_next %}
-            <a class=" btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}" > › </a>
-            <a class=" btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}" > » </a>
+            <a class=" btn btn-outline-info mb-4" href="{% my_url page_obj.next_page_number 'page' request.GET.urlencode %}" > › </a>
+            <a class=" btn btn-outline-info mb-4" href="{% my_url page_obj.paginator.num_pages 'page' request.GET.urlencode %}" > » </a>
          {% else %}
             <a class=" btn btn-outline-info mb-4 disabled" > › </a>
             <a class=" btn btn-outline-info mb-4 disabled" > » </a>

@@ -4,24 +4,38 @@
     <h1> Manage Users </h1>
     <p><a class="btn btn-outline-info" href="{% url 'webadminapp-admin-dashboard' %}">Back to Dashboard</a></p>
          {% for user in users %}
-            <article class="media content-section">
-
-              <div class="media-body">
-                <div class="article-metadata">
-                  <a class="mr-2" href="{% url 'user-products' user.username %}">{{ user.username }}{% if user|has_group:"Admin_super_grp" or user|has_group:"Admin_user_grp" or user|has_group:"Admin_item_grp" %}
-                        (Admin)
-                    {% endif %}</a>
-
-                  <small class="text-muted">id: {{ user.id }}</small>
-                </div>
-                  <h2><a class="article-title" href="">Active: {{ user.is_active }}</a></h2>
-                  <p class="article-content">Joined: {{user.date_joined}}
-                      Last Login: {{ user.last_login }}</p>
-                  {% if user|has_group:"Members" %}
-                  <a class="btn block-btn" href="{% url 'webadminapp-confirm' user.id%}">{% if user.is_active %}Block{% else %}Unblock{% endif %}</a>
-                  {% endif %}
-              </div>
-
-            </article>
+            {% if user|has_group:"Members" %}
+                <article class="media content-section">
+                  <div class="media-body">
+                    <div class="article-metadata">
+                      <a class="mr-2" href="{% url 'user-products' user.username %}">{{ user.username }}</a>
+                      <small class="text-muted">User id: {{ user.id }}</small>
+                    </div>
+                      <h2><a class="article-title" href="">Active: {{ user.is_active }}</a></h2>
+                      <p class="article-content">Joined: {{user.date_joined}}
+                          Last Login: {{ user.last_login }}</p>
+                      <a class="btn btn-outline-danger" href="{% url 'webadminapp-confirm-block' user.id%}">{% if user.is_active %}Block{% else %}Unblock{% endif %}</a>
+                  </div>
+                </article>
+            {% endif %}
         {% endfor %}
+        {% if is_paginated %}
+            {% if page_obj.has_previous %}
+                <a class=" btn btn-outline-info mb-4" href="?page=1" > First </a>
+                <a class=" btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}" > Previous</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <a class="btn btn-outline-info mb-4" href="?page={{ num }}" > {{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+             {% if page_obj.has_next %}
+                <a class=" btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}" > Next</a>
+                <a class=" btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}" > Last</a>
+            {% endif %}
+        {% endif %}
 {% endblock content %}
