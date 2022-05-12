@@ -43,7 +43,6 @@
 <!--                <li><a class="nav-item nav-link" href="{% url 'store-about' %}">About</a></li>-->
                 {% if request.user|has_group:"Admin_user_grp" or request.user|has_group:"Admin_item_grp" or request.user|has_group:"Admin_super_grp" %}
                     <li><a class="nav-item nav-link" href="{% url 'webadminapp-admin-dashboard' %}">Admin Dashboard</a></li>
-
                 {% endif %}
             </ul>
             <!-- Navbar Right Side -->
