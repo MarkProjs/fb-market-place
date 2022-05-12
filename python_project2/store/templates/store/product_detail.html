@@ -15,28 +15,33 @@
             {% endif %}
         </div>
         <h2 class="article-title">{{ object.name }}</h2>
+          <div class="content-detail">
            {% if product.image %}
+              <div class="content-image">
                 <img src="{{ product.image.url }}">
+              </div>
               {% endif %}
+              <div class="content-text">
           <p class="article-content">{{ object.type }}</p>
           <p class="article-content">{{ object.price }}</p>
           <p class="article-content">{{ object.status }}</p>
           <p class="article-content">{{ object.address }}</p>
           <p class="article-content">{{ object.description }}</p>
-
-          {% if object.owner != user %}
-          <form action="{% url 'like-product' product.pk %}" method="POST">
+                  {% if object.owner != user %}
+          <div class="reactions">
+          <form class="form-detail" action="{% url 'like-product' product.pk %}" method="POST">
                   {% csrf_token %}
                   <button type="submit", name="product_id", value="{{ product.id }}", class="btn btn-primary btn-sm" >Like</button> - {{total_likes}}
           </form>
-          <br/> <br/>
-
-           <form action="{% url 'flag-product' product.pk %}" method="POST">
+           <form class="form-detail" action="{% url 'flag-product' product.pk %}" method="POST">
                   {% csrf_token %}
-                  <button type="submit", name="product_id", value="{{ product.id }}" > Flag </button> - {{total_flags}}
+                  <button type="submit", name="product_id", value="{{ product.id }}", class="btn btn-primary btn-sm" > Flag </button> - {{total_flags}}
           </form>
-          <br/> <br/>
+          </div>
             {% endif %}
+              </div>
+          </div>
+
           <h5> Ratings: {{ avg_rating }}⭐</h5>
 
           <hr>
