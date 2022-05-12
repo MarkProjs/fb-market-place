@@ -269,7 +269,6 @@ border-bottom: 1px solid #BBB;
   z-index:+0;
   top: 0px; left: 0px;
   right: 0px; bottom: 0px;
-  cursor: pointer;
 }
 /*
 .dropdown ul {
@@ -289,7 +288,7 @@ border-bottom: 1px solid #BBB;
   position: absolute;
   top: 100%;
   left: 0;
-  z-index: 1000;
+  z-index: 10;
   display: none;
   float: left;
   min-width: 10rem;
@@ -309,11 +308,31 @@ border-bottom: 1px solid #BBB;
   display: block;
 }
 
-.dropdown ul li {
+.dropdown-menu li {
   display: block;
   padding: 6px 20px;
   white-space: nowrap;
   min-width: 100px;
+}
+
+.dropdown-menu li:hover:not(.divider) {
+  background-color: #F5F5F5;
+  cursor: pointer;
+}
+
+.dropdown-menu li a {
+  text-decoration: none;
+  display: block;
+  color: black
+}
+
+.dropdown .divider {
+  height: 1px;
+  margin: 9px 0;
+  overflow: hidden;
+  background-color: #e5e5e5;
+  font-size: 1px;
+  padding: 0;
 }
 
 input[type="search"]:focus:hover {

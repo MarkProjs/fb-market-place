@@ -9,10 +9,12 @@
           <ul class="dropdown-menu">
             {% with params=request.GET.urlencode %}
 <!--              add params after 'ordering' if needed-->
-              <li><a href="{% my_url 'name' 'ordering' %}">Name (a-z)</a></li>
-              <li><a href="{% my_url '-name' 'ordering' %}">Name (z-a)</a></li>
-              <li><a href="{% my_url 'price' 'ordering' %}">Price (asc)</a></li>
-              <li><a href="{% my_url '-price' 'ordering' %}">Price (desc)</a></li>
+              <li><a href="{% my_url 'name' 'ordering' %}">Name (A-Z)</a></li>
+              <li><a href="{% my_url '-name' 'ordering' %}">Name (Z-A)</a></li>
+              <li><a href="{% my_url 'price' 'ordering' %}">Price (Low-High)</a></li>
+              <li><a href="{% my_url '-price' 'ordering' %}">Price (High-Low)</a></li>
+              <li class="divider"></li>
+              <li><a href="/store">None</a></li>
             {% endwith %}
           </ul>
         </div>
