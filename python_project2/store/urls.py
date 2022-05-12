@@ -25,6 +25,14 @@ urlpatterns = [
     path('product/<int:pk>/comment', AddCommentView.as_view(), name='add-comment'),
     path('search_products/', views.search_products, name='search-products'),
     path('flag/<int:pk>/', FlagView, name='flag-product'),
+    path('api/', views.api_map, name='api_map'),
+    path('api/product-list/', views.api_get_all_products, name='api_product_list'),
+    path('api/product-new/', views.api_create_product, name='api_product_new'),
+    path('api/<int:pk>/product-detail', views.api_product_detail, name='api_product_detail'),
+    path('api/<int:pk>/product-edit', views.api_product_edit, name='api_product_edit'),
+    path('api/<int:pk>/product-delete', views.api_product_delete, name='api_product_delete'),
+
 ]
+
 
 
