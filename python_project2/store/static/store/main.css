@@ -205,7 +205,6 @@ border-bottom: 1px solid #BBB;
   display: inline-block;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
-  height: 5%;
 }
 /*.dropdown:hover{
   cursor:pointer;
@@ -293,7 +292,6 @@ border-bottom: 1px solid #BBB;
   float: left;
   min-width: 10rem;
   padding: .5rem 0;
-  margin: .125rem 0 0;
   font-size: 1rem;
   color: #212529;
   text-align: left;
@@ -359,7 +357,7 @@ form .search {
 }
 
 main    {
-  margin-top: 3rem;
+  margin-top: 3.5rem;
     width: 100%;
 padding-right: 15px;
 padding-left: 15px;
@@ -521,7 +519,6 @@ legend {
   line-height: 1.5;
   border-radius: .25rem;
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-  margin-bottom: 1.5rem !important;
   color: #17a2b8;
   background-color: transparent;
   background-image: none;
