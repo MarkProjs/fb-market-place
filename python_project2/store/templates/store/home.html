@@ -5,6 +5,7 @@
           <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
             Order by
           </button>
+            <input type="checkbox">
           <ul class="dropdown-menu">
             {% with params=request.GET.urlencode %}
 <!--              add params after 'ordering' if needed-->
@@ -15,6 +16,7 @@
             {% endwith %}
           </ul>
         </div>
+        <div class="articles">
         {# % for product in products % #}
          {% for product in object_list %}
         <article class="media content-section">
@@ -32,6 +34,7 @@
           </div>
         </article>
     {% endfor %}
+    </div>
 
     {% if is_paginated %}
     <div class="pagination">
