@@ -1,7 +1,7 @@
 {% extends "store/base.html" %}
 {% block content %}
-    <p><a class="btn btn-outline-info" href="{% url 'web_messaging_send' %}">Send New Message</a></p>
     <h1> Inbox </h1>
+    <p><a class="btn btn-outline-info" href="{% url 'web_messaging_send' %}">Send New Message</a></p>
          {% for mess in view_message %}
             <article class="media content-section">
               <div class="media-body">
