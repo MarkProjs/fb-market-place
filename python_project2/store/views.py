@@ -198,7 +198,7 @@ def group_required(*group_names):
 
 
 @api_view(['GET'])
-@group_required('Admin_item_group','Admin_super_grp')
+@group_required('Admin_user_group','Admin_item_group','Admin_super_grp')
 def api_map(req):
     my_api_urls = {
         'List': 'api/product-list/',
