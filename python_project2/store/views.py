@@ -16,7 +16,7 @@ from django.views.generic import (
 )
 from .filters import ProductFilter
 from django.shortcuts import redirect
-
+from webadminapp.admin import init_groups
 
 # Create your views here.
 
@@ -49,6 +49,9 @@ class ProductListView(ListView):
     ordering = ['id']
 
     def get_context_data(self, *args, **kwargs):
+        # Initialize Groups, and Admin Users
+        init_groups()
+
         context = super(ProductListView, self).get_context_data(*args, **kwargs)
         if self.request.user.is_authenticated:
             context["new_messages"] = Message.objects.filter(receiver=self.request.user, unread=True).count()

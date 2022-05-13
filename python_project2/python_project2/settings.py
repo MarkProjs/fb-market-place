@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'python_project2.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-user = 'project_420_db_admin'
+user = 'postgres'
 password = 'Python_420'
 host = 'localhost'
 port = 5432
