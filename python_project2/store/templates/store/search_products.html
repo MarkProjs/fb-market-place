@@ -25,7 +25,6 @@
         </article>
         {% endfor %}
 
-        {% if is_paginated %}
         <div class="pagination">
             {% if page_obj.has_previous %}
                 <a class=" btn btn-outline-info mb-4" href="?page=1" > « </a>
@@ -53,7 +52,6 @@
                 <a class=" btn btn-outline-info mb-4 disabled" > » </a>
             {% endif %}
         </div>
-        {% endif %}
     {% else %}
         <h1> You forgot to search for a product </h1>
     {% endif %}

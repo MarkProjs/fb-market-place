@@ -16,6 +16,7 @@ from django.views.generic import (
 )
 from .filters import ProductFilter
 from django.shortcuts import redirect
+from django.core.paginator import Paginator
 
 
 # Create your views here.
@@ -144,8 +145,13 @@ def search_products(request):
     if request.method == "POST":
         searched = request.POST['searched']
         products = Product.objects.filter(name__contains=searched)
+        # paginator = Paginator(products, 3)
+        # page = request.GET.get('page')
+        # page_obj = paginator.get_page(page)
 
-        return render(request, 'store/search_products.html', {'searched': searched, 'products': products})
+        return render(request, 'store/search_products.html', {
+            'searched': searched, 'products': products,  # 'page_obj': page_obj
+        })
 
     else:
         return render(request, 'store/search_products.html', {})
