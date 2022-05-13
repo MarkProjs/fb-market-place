@@ -211,7 +211,7 @@ def api_map(req):
 
 
 @api_view(['GET'])
-@group_required('Admin_item_group','Admin_super_grp')
+@group_required('Admin_user_group','Admin_item_group','Admin_super_grp')
 def api_get_all_products(req):
     products = Product.objects.all()
     print(products)
@@ -240,7 +240,7 @@ def get_product(pk):
 
 
 @api_view(['GET'])
-@group_required('Admin_item_group','Admin_super_grp')
+@group_required('Admin_user_group','Admin_item_group','Admin_super_grp')
 def api_product_detail(req, pk):
     product = get_product(pk)
     obj_serializer = ProductClassSerializer(instance=product)
