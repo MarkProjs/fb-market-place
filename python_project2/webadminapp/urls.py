@@ -9,5 +9,6 @@ urlpatterns = [
     path('manage_items/<int:pk>/delete', AdminDeleteItem.as_view(), name='webadminapp-delete-item'),
     path('manage_items/<int:pk>/update', AdminUpdateItem.as_view(), name='webadminapp-update-item'),
     path('manage_users/<int:pk>/confirm_block', views.confirm_block, name='webadminapp-confirm-block'),
+    path('manage_users/<int:pk>/confirm_warn', views.confirm_warn, name='webadminapp-confirm-warn'),
     path('access_denied', views.error_403, name='access-denied')
 ]

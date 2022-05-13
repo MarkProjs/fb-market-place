@@ -15,6 +15,7 @@
                       <p class="article-content">Joined: {{user.date_joined}}
                           Last Login: {{ user.last_login }}</p>
                       <a class="btn btn-outline-danger" href="{% url 'webadminapp-confirm-block' user.id%}">{% if user.is_active %}Block{% else %}Unblock{% endif %}</a>
+                      <a class="btn btn-outline-danger" href="{% url 'webadminapp-confirm-warn' user.id%}">Warn</a>
                   </div>
                 </article>
             {% endif %}

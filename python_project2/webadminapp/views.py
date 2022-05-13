@@ -4,6 +4,7 @@ from django.views.generic import DetailView
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 from store.models import Product
+from web_messaging.models import Message
 from django.views.generic import (
     ListView,
     DeleteView,
@@ -100,8 +101,28 @@ def confirm_block(request, pk):
             target.is_active = True
         target.save()
         return redirect('webadminapp-manage-users')
+
     if context['user'].groups.filter(name="Members").exists():
         return render(request, 'admin_confirm_block.html', context)
+    else:
+        return redirect('access-denied')
+
+
+@group_required('Admin_user_grp', 'Admin_super_grp')
+def confirm_warn(request, pk):
+    context = {
+        'user': User.objects.get(id=pk)
+    }
+    if request.method == "POST":
+        receiver_name = context['user']
+        receiver = User.objects.get(username=receiver_name)
+        msg_body = 'This is an automated message,\nAn Admin has issued a Warning\nFurther Warnings may lead to ' \
+                   'deactivating your account'
+        Message.objects.create(sender=request.user, receiver=receiver, message=msg_body)
+        return redirect('webadminapp-manage-users')
+
+    if context['user'].groups.filter(name="Members").exists():
+        return render(request, 'admin_confirm_warn.html', context)
     else:
         return redirect('access-denied')
 
