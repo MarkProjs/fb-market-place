@@ -183,9 +183,22 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import Product
 from .serializer import ProductClassSerializer
+from django.contrib.auth.decorators import user_passes_test
+
+
+def group_required(*group_names):
+    """Requires user membership in at least one of the groups passed in."""
+    def in_groups(u):
+        if u.is_authenticated:
+            if bool(u.groups.filter(name__in=group_names)) | u.is_superuser:
+                return True
+        return False
+
+    return user_passes_test(in_groups, login_url='access-denied')
 
 
 @api_view(['GET'])
+@group_required('Admin_item_group','Admin_super_grp')
 def api_map(req):
     my_api_urls = {
         'List': 'api/product-list/',

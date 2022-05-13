@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.views.generic import DetailView
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
@@ -32,10 +32,11 @@ def admin_dashboard(request):
 
 
 class AdminListUsers(ListView):
-    queryset = User.objects.filter(groups__name='Members')
+    model = User
     template_name = 'admin_manage_users.html'
     paginate_by = 3
     context_object_name = 'users'
+    ordering = ['id']
 
     def get_context_data(self, *args, **kwargs):
         context = super(AdminListUsers, self).get_context_data(*args, **kwargs)
@@ -123,6 +124,55 @@ def confirm_warn(request, pk):
 
     if context['user'].groups.filter(name="Members").exists():
         return render(request, 'admin_confirm_warn.html', context)
+    else:
+        return redirect('access-denied')
+
+
+@group_required('Admin_super_grp')
+def confirm_promote(request, pk):
+    context = {
+        'user': User.objects.get(id=pk),
+        'super_grp': Group.objects.get(name='Admin_super_grp'),
+        'item_grp': Group.objects.get(name='Admin_item_grp'),
+        'user_grp': Group.objects.get(name='Admin_user_grp'),
+    }
+    if request.method == "POST":
+        target = context['user']
+        data = request.POST
+        action = data.get("target")
+        if action == "item":
+            target.groups.clear()
+            context['item_grp'].user_set.add(target)
+        elif action == "user":
+            target.groups.clear()
+            context['user_grp'].user_set.add(target)
+        elif action == "super":
+            target.groups.clear()
+            context['super_grp'].user_set.add(target)
+        target.save()
+        return redirect('webadminapp-manage-users')
+
+    if context['user']:
+        return render(request, 'admin_confirm_promote.html', context)
+    else:
+        return redirect('access-denied')
+
+
+@group_required('Admin_super_grp')
+def confirm_revoke(request, pk):
+    context = {
+        'user': User.objects.get(id=pk),
+        'members_grp': Group.objects.get(name='Members'),
+    }
+    if request.method == "POST":
+        target = context['user']
+        target.groups.clear()
+        context['members_grp'].user_set.add(target)
+        target.save()
+        return redirect('webadminapp-manage-users')
+
+    if not context['user'].groups.filter(name="Admin_super_grp").exists():
+        return render(request, 'admin_confirm_revoke.html', context)
     else:
         return redirect('access-denied')
 

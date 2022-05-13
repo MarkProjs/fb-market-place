@@ -10,5 +10,7 @@ urlpatterns = [
     path('manage_items/<int:pk>/update', AdminUpdateItem.as_view(), name='webadminapp-update-item'),
     path('manage_users/<int:pk>/confirm_block', views.confirm_block, name='webadminapp-confirm-block'),
     path('manage_users/<int:pk>/confirm_warn', views.confirm_warn, name='webadminapp-confirm-warn'),
+    path('manage_users/<int:pk>/confirm_promote', views.confirm_promote, name='webadminapp-confirm-promote'),
+    path('manage_users/<int:pk>/confirm_revoke', views.confirm_revoke, name='webadminapp-confirm-revoke'),
     path('access_denied', views.error_403, name='access-denied')
 ]
