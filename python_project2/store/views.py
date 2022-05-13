@@ -211,6 +211,7 @@ def api_map(req):
 
 
 @api_view(['GET'])
+@group_required('Admin_item_group','Admin_super_grp')
 def api_get_all_products(req):
     products = Product.objects.all()
     print(products)
@@ -219,6 +220,7 @@ def api_get_all_products(req):
 
 
 @api_view(['POST'])
+@group_required('Admin_item_group','Admin_super_grp')
 def api_create_product(req):
     # if not req.user.is_authenticated():
     #     return redirect('register/')
@@ -238,6 +240,7 @@ def get_product(pk):
 
 
 @api_view(['GET'])
+@group_required('Admin_item_group','Admin_super_grp')
 def api_product_detail(req, pk):
     product = get_product(pk)
     obj_serializer = ProductClassSerializer(instance=product)
@@ -245,6 +248,7 @@ def api_product_detail(req, pk):
 
 
 @api_view(['POST'])
+@group_required('Admin_item_group','Admin_super_grp')
 def api_product_edit(req, pk):
     product = get_product(pk)
     obj_serializer = ProductClassSerializer(product, data=req.data)
@@ -255,6 +259,7 @@ def api_product_edit(req, pk):
 
 
 @api_view(['DELETE'])
+@group_required('Admin_item_group','Admin_super_grp')
 def api_product_delete(req, pk):
     this_product = get_product(pk)
     this_product.delete()
