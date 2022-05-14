@@ -1,55 +1,80 @@
 {% extends "store/base.html" %}
 {% block content %}
     {% load store_extras %}
+    <div class="options">
         <div class="dropdown">
           <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
             Order by
           </button>
+            <input type="checkbox">
           <ul class="dropdown-menu">
             {% with params=request.GET.urlencode %}
-<!--              add params after 'ordering' if needed-->
-              <li><a href="{% my_url 'name' 'ordering' %}">Name (a-z)</a></li>
-              <li><a href="{% my_url '-name' 'ordering' %}">Name (z-a)</a></li>
-              <li><a href="{% my_url 'price' 'ordering' %}">Price (asc)</a></li>
-              <li><a href="{% my_url '-price' 'ordering' %}">Price (desc)</a></li>
+              <li><a href="{% my_url 'name' 'ordering' %}">Name (A-Z)</a></li>
+              <li><a href="{% my_url '-name' 'ordering' %}">Name (Z-A)</a></li>
+              <li><a href="{% my_url 'price' 'ordering' %}">Price (Low-High)</a></li>
+              <li><a href="{% my_url '-price' 'ordering' %}">Price (High-Low)</a></li>
+              <li class="divider"></li>
+              <li><a href="/store">None</a></li>
             {% endwith %}
           </ul>
         </div>
+        <label>Grid:
+        <input type="checkbox" id="myCheckbox">
+        </label>
+    </div>
+        <div class="articles">
         {# % for product in products % #}
          {% for product in object_list %}
         <article class="media content-section">
           <div class="media-body">
             <div class="article-metadata">
-              <a class="mr-2" href="{% url 'user-products' product.owner.username %}">{{ product.owner }}</a>
+              <a href="{% url 'user-products' product.owner.username %}">{{ product.owner }}</a>
               <small class="text-muted">{{ product.size }}</small>
             </div>
+              <div class="content">
+                  <div class="content-text">
             <h2><a class="article-title" href="{% url 'product-detail' product.id %}">{{ product.name }}</a></h2>
-              {% if product.image %}
-                <img src="{{ product.image.url }}">
-              {% endif %}
               <p class="article-content">{{ product.price }}</p>
               <p class="article-content">{{ product.description }}</p>
+                  </div>
+              {% if product.image %}
+                  <div class="content-image">
+                <img src="{{ product.image.url }}">
+                  </div>
+              {% endif %}
+              </div>
           </div>
         </article>
     {% endfor %}
+    </div>
 
     {% if is_paginated %}
+    <div class="pagination">
         {% if page_obj.has_previous %}
-            <a class=" btn btn-outline-info mb-4" href="{% my_url 1 'page' request.GET.urlencode %}" > First </a>
-            <a class=" btn btn-outline-info mb-4" href="{% my_url page_obj.previous_page_number 'page' request.GET.urlencode %}" > Previous</a>
+            <a class=" btn " href="{% my_url 1 'page' request.GET.urlencode %}" > « </a>
+            <a class=" btn " href="{% my_url page_obj.previous_page_number 'page' request.GET.urlencode %}" > ‹ </a>
+        {% else %}
+            <a class=" btn disabled" > « </a>
+            <a class=" btn disabled" > ‹ </a>
         {% endif %}
 
+        <div class="pages">
         {% for num in page_obj.paginator.page_range %}
             {% if page_obj.number == num %}
-                <a class="btn btn-info mb-4" href="{% my_url num 'page' request.GET.urlencode %}">{{ num }}</a>
+                <a class="btn currently" href="{% my_url num 'page' request.GET.urlencode %}">{{ num }}</a>
             {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                <a class="btn btn-outline-info mb-4" href="{% my_url num 'page' request.GET.urlencode %}" > {{ num }}</a>
+                <a class="btn mb-4" href="{% my_url num 'page' request.GET.urlencode %}" > {{ num }}</a>
             {% endif %}
         {% endfor %}
+        </div>
 
          {% if page_obj.has_next %}
-            <a class=" btn btn-outline-info mb-4" href="{% my_url page_obj.next_page_number 'page' request.GET.urlencode %}" > Next</a>
-            <a class=" btn btn-outline-info mb-4" href="{% my_url page_obj.paginator.num_pages 'page' request.GET.urlencode %}" > Last</a>
+            <a class=" btn " href="{% my_url page_obj.next_page_number 'page' request.GET.urlencode %}" > › </a>
+            <a class=" btn " href="{% my_url page_obj.paginator.num_pages 'page' request.GET.urlencode %}" > » </a>
+         {% else %}
+            <a class=" btn disabled" > › </a>
+            <a class=" btn disabled" > » </a>
         {% endif %}
+    </div>
     {% endif %}
 {% endblock content %}

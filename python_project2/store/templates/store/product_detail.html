@@ -9,34 +9,39 @@
           <small class="text-muted">{{ object.size }}</small>
             {% if object.owner == user %}
             <div>
-                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'product-update'  object.id%}">Update</a>
-                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'product-delete'  object.id %}">Delete</a>
+                <a class="btn btn-secondary" href="{% url 'product-update'  object.id%}">Update</a>
+                <a class="btn block-btn" href="{% url 'product-delete'  object.id %}">Delete</a>
             </div>
             {% endif %}
         </div>
         <h2 class="article-title">{{ object.name }}</h2>
+          <div class="content-detail">
            {% if product.image %}
+              <div class="content-image">
                 <img src="{{ product.image.url }}">
+              </div>
               {% endif %}
+              <div class="content-text">
           <p class="article-content">{{ object.type }}</p>
           <p class="article-content">{{ object.price }}</p>
           <p class="article-content">{{ object.status }}</p>
           <p class="article-content">{{ object.address }}</p>
           <p class="article-content">{{ object.description }}</p>
-
-          {% if object.owner != user %}
-          <form action="{% url 'like-product' product.pk %}" method="POST">
+                  {% if object.owner != user %}
+          <div class="reactions">
+          <form class="form-detail" action="{% url 'like-product' product.pk %}" method="POST">
                   {% csrf_token %}
-                  <button type="submit", name="product_id", value="{{ product.id }}", class="btn btn-primary btn-sm" >Like</button> - {{total_likes}}
+                  <button type="submit", name="product_id", value="{{ product.id }}", class="btn" >Like</button> - {{total_likes}}
           </form>
-          <br/> <br/>
-
-           <form action="{% url 'flag-product' product.pk %}" method="POST">
+           <form class="form-detail" action="{% url 'flag-product' product.pk %}" method="POST">
                   {% csrf_token %}
-                  <button type="submit", name="product_id", value="{{ product.id }}" > Flag </button> - {{total_flags}}
+                  <button type="submit", name="product_id", value="{{ product.id }}", class="btn" > Flag </button> - {{total_flags}}
           </form>
-          <br/> <br/>
+          </div>
             {% endif %}
+              </div>
+          </div>
+
           <h5> Ratings: {{ avg_rating }}⭐</h5>
 
           <hr>
@@ -44,8 +49,6 @@
 
           {% if not product.comments.all %}
            No comment yet ...
-             <a href="{% url 'add-comment' product.pk %}"> Add Comment </a>
-              <br>
           {% else %}
 
             {% for comment in product.comments.all %}
@@ -57,14 +60,14 @@
                     <br/> <br/>
                     <hr>
             {% endfor %}
-              <a href="{% url 'add-comment' product.pk %}"> Add Comment </a>
-              <br>
           {% endif %}
+          <br><a class="btn" href="{% url 'add-comment' product.pk %}"> Add Comment </a>
+              <br>
 
       </div>
     </article>
 {% else %}
-    <a class="nav-item nav-link" href="{% url 'register' %}">Register to view details</a>
+    <a class="btn" href="{% url 'register' %}">Register to view details</a>
 {% endif %}
 {% endblock content %}
 
