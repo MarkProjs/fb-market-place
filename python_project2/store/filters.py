@@ -10,6 +10,7 @@ class ProductFilter(django_filters.FilterSet):
         ('-price', 'Price Asc'),
         ('name', 'Name A-Z'),
         ('-name', 'Name Z-A'),
+        ('', 'None')
     )
 
     ordering = django_filters.ChoiceFilter(

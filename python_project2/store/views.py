@@ -17,6 +17,8 @@ from django.views.generic import (
 from .filters import ProductFilter
 from django.shortcuts import redirect
 from webadminapp.admin import init_groups
+from django.core.paginator import Paginator
+
 
 # Create your views here.
 
@@ -25,19 +27,6 @@ def home(request):
     context = {
         'products': Product.objects.all(),
     }
-
-    # filtered_products = ProductFilter(
-    #     request.GET,
-    #     queryset=Product.objects.all()
-    # )
-    #
-    # context['filtered_products'] = filtered_products
-
-    # paginated_filtered_products = Paginator(filtered_products.qs, 2)
-    # page_number = self.request.get('page')
-    # page_obj = paginated_filtered_products.get_page(self, page_number)
-    # context['page_obj'] = page_obj
-
     return render(request, 'store/home.html', context)
 
 
@@ -56,10 +45,6 @@ class ProductListView(ListView):
         if self.request.user.is_authenticated:
             context["new_messages"] = Message.objects.filter(receiver=self.request.user, unread=True).count()
         context['filtered_products'] = ProductFilter(self.request.GET, queryset=self.get_queryset())
-        # paginated_filtered_products = Paginator(filtered_products.qs, 2)
-        # page_number = self.request.get('page')
-        # page_obj = paginated_filtered_products.get_page(self, page_number)
-        # context['page_obj'] = page_obj
         return context
 
     def get_queryset(self):
@@ -164,8 +149,13 @@ def search_products(request):
     if request.method == "POST":
         searched = request.POST['searched']
         products = Product.objects.filter(name__contains=searched)
+        # paginator = Paginator(products, 3)
+        # page = request.GET.get('page')
+        # page_obj = paginator.get_page(page)
 
-        return render(request, 'store/search_products.html', {'searched': searched, 'products': products})
+        return render(request, 'store/search_products.html', {
+            'searched': searched, 'products': products,  # 'page_obj': page_obj
+        })
 
     else:
         return render(request, 'store/search_products.html', {})
