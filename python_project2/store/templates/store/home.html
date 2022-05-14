@@ -9,7 +9,6 @@
             <input type="checkbox">
           <ul class="dropdown-menu">
             {% with params=request.GET.urlencode %}
-<!--              add params after 'ordering' if needed-->
               <li><a href="{% my_url 'name' 'ordering' %}">Name (A-Z)</a></li>
               <li><a href="{% my_url '-name' 'ordering' %}">Name (Z-A)</a></li>
               <li><a href="{% my_url 'price' 'ordering' %}">Price (Low-High)</a></li>

@@ -20,9 +20,9 @@
                   {% endif %}
                   {% if request.user|has_group:"Admin_super_grp" %}
                     {% if user|has_group:"Members" %}
-                        <a class="btn btn-secondary" href="{% url 'webadminapp-confirm-promote' user.id%}">Grant Admin Privilege</a>
+                        <a class="btn update-btn" href="{% url 'webadminapp-confirm-promote' user.id%}">Grant Admin Privilege</a>
                     {% elif user|has_group:"Admin_user_grp" or user|has_group:"Admin_item_grp" %}
-                        <a class="btn btn-secondary" href="{% url 'webadminapp-confirm-promote' user.id%}">Promote</a>
+                        <a class="btn update-btn" href="{% url 'webadminapp-confirm-promote' user.id%}">Promote</a>
                         <a class="btn block-btn" href="{% url 'webadminapp-confirm-revoke' user.id%}">Revoke Admin Privilege</a>
                     {% endif %}
                   {% endif %}
