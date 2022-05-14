@@ -7,7 +7,7 @@ class ProductFilter(django_filters.FilterSet):
 
     CHOICES = (
         ('price', 'Price Asc'),
-        ('-price', 'Price Asc'),
+        ('-price', 'Price Desc'),
         ('name', 'Name A-Z'),
         ('-name', 'Name Z-A'),
         ('', 'None')
@@ -23,20 +23,6 @@ class ProductFilter(django_filters.FilterSet):
         expression = value
         return queryset.order_by(expression)
 
-    # class Meta:
-    #     model = Product
-    #     fields = [
-    #         'owner',
-    #         'type',
-    #         'name',
-    #         'price',
-    #         'description',
-    #         'likes',
-    #         'size',
-    #         'address',
-    #         'status',
-    #         'flags',
-    #     ]
 
 
 
