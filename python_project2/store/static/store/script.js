@@ -22,13 +22,15 @@ var oldContentSection = ''
 var oldContent = ''
 var oldContentImage = ''
 
-checkbox.addEventListener('change', (event) => {
-  if (event.currentTarget.checked) {
-    addAll()
-  } else {
-    resetAll()
-  }
-})
+if(checkbox != null){
+    checkbox.addEventListener('change', (event) => {
+      if (event.currentTarget.checked) {
+        addAll()
+      } else {
+        resetAll()
+      }
+    })
+}
 
 function addClass(classList, newClass){
   var oldClass = classList[0].className;
@@ -44,7 +46,6 @@ function addAll(){
   oldContentSection = addClass(contentSection, 'content-section-grid')
   oldContent = addClass(content, 'content-grid')
   oldContentImage = addClass(contentImage, 'content-image-grid')
-  console.log('added')
 }
 
 function resetClass(classList, oldClass){
