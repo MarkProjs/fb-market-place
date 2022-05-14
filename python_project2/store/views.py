@@ -16,6 +16,7 @@ from django.views.generic import (
 )
 from .filters import ProductFilter
 from django.shortcuts import redirect
+from webadminapp.admin import init_groups
 from django.core.paginator import Paginator
 
 
@@ -37,6 +38,9 @@ class ProductListView(ListView):
     ordering = ['id']
 
     def get_context_data(self, *args, **kwargs):
+        # Initialize Groups, and Admin Users
+        init_groups()
+
         context = super(ProductListView, self).get_context_data(*args, **kwargs)
         if self.request.user.is_authenticated:
             context["new_messages"] = Message.objects.filter(receiver=self.request.user, unread=True).count()
@@ -161,3 +165,92 @@ def FlagView(request, pk):
     product = get_object_or_404(Product, id=request.POST.get('product_id'))
     product.flags.add(request.user)
     return HttpResponseRedirect(reverse('product-detail', args=[str(pk)]))
+
+
+#  Rest API
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from .models import Product
+from .serializer import ProductClassSerializer
+from django.contrib.auth.decorators import user_passes_test
+
+
+def group_required(*group_names):
+    """Requires user membership in at least one of the groups passed in."""
+    def in_groups(u):
+        if u.is_authenticated:
+            if bool(u.groups.filter(name__in=group_names)) | u.is_superuser:
+                return True
+        return False
+
+    return user_passes_test(in_groups, login_url='access-denied')
+
+
+@api_view(['GET'])
+@group_required('Admin_user_group','Admin_item_group','Admin_super_grp')
+def api_map(req):
+    my_api_urls = {
+        'List': 'api/product-list/',
+        'Detail': 'api/<int:pk>.product-detail/',
+        'Create': 'api/product-new/',
+        'Update': 'api/<int:pk>/product-edit/',
+        'Delete': 'api/<int:pk>/product-delete/',
+    }
+    return Response(my_api_urls)
+
+
+@api_view(['GET'])
+@group_required('Admin_user_group','Admin_item_group','Admin_super_grp')
+def api_get_all_products(req):
+    products = Product.objects.all()
+    print(products)
+    obj_serializer = ProductClassSerializer(products, many=True)
+    return Response(obj_serializer.data)
+
+
+@api_view(['POST'])
+@group_required('Admin_item_group','Admin_super_grp')
+def api_create_product(req):
+    # if not req.user.is_authenticated():
+    #     return redirect('register/')
+    obj_serializer = ProductClassSerializer(data=req.data)
+    if obj_serializer.is_valid():
+        obj_serializer.save()
+        return Response(obj_serializer.data, status=status.HTTP_201_CREATED)
+    return Response(obj_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+def get_product(pk):
+    try:
+        product = Product.objects.get(id=pk)
+        return product
+    except:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(['GET'])
+@group_required('Admin_user_group','Admin_item_group','Admin_super_grp')
+def api_product_detail(req, pk):
+    product = get_product(pk)
+    obj_serializer = ProductClassSerializer(instance=product)
+    return Response(obj_serializer.data)
+
+
+@api_view(['POST'])
+@group_required('Admin_item_group','Admin_super_grp')
+def api_product_edit(req, pk):
+    product = get_product(pk)
+    obj_serializer = ProductClassSerializer(product, data=req.data)
+    if obj_serializer.is_valid():
+        obj_serializer.save()
+        return Response(obj_serializer.data, status=status.HTTP_201_CREATED)
+    return Response(obj_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['DELETE'])
+@group_required('Admin_item_group','Admin_super_grp')
+def api_product_delete(req, pk):
+    this_product = get_product(pk)
+    this_product.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)

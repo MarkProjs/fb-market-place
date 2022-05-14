@@ -1,0 +1,21 @@
+{% extends "store/base.html" %}
+{% load user_extras %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend>Promote User</legend>
+                <h2> Promoting "{{ user.username }}"</h2>
+            </fieldset>
+            <div class="form-group">
+                {% if user|has_group:"Members" %}
+                <button class="btn" type="submit" name="target" value="item">Admin Item Group</button>
+                <button class="btn" type="submit" name="target" value="user">Admin User Group</button>
+                {% endif %}
+                <button class="btn" type="submit" name="target" value="super">Admin Super Group</button>
+                <a class="btn" href="{% url 'webadminapp-manage-users' %}">Cancel</a>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
