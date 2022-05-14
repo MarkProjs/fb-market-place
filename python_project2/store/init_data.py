@@ -72,6 +72,61 @@ product_lst = [
         'address': '240 Deron Street',
         'status': 'Used'
     },
+    {
+        'owner': 'Mark',
+        'type': 'Shoes',
+        'name': 'KAWS Air Force 1',
+        'price': 200,
+        'description': 'An all-white Air Force 1, but customized to be inspired by the company of Brian Donnelly aka KAWS.',
+        'size': '9.5',
+        'image': 'default_product_img/KAWS-Air-Force-1.jpg',
+        'address': '159 Imaginary Street',
+        'status': 'New'
+    },
+    {
+        'owner': 'Denis',
+        'type': 'Utilities',
+        'name': 'Water Bottle (half-full)',
+        'price': 5,
+        'description': 'A water bottle to quench your thirst (someone was thirsty first).',
+        'size': '',
+        'image': 'default_product_img/used-water-bottle.jpg',
+        'address': '199 Avenue Non-Existent',
+        'status': 'Used'
+    },
+    {
+        'owner': 'Manny',
+        'type': 'Electronics',
+        'name': 'Beats Studio Wireless Headphone',
+        'price': 150,
+        'description': 'A used Studio Beats. A bit of tear on the ear muffs.',
+        'size': '',
+        'image': 'default_product_img/BeatsHeadphone.jpg',
+        'address': '169 Notanaddress Street',
+        'status': 'Used'
+    },
+    {
+        'owner': 'Mark',
+        'type': 'Electronics',
+        'name': 'Ps4 controller',
+        'price': 80,
+        'description': 'A used ps4 controller',
+        'size': '',
+        'image': 'default_product_img/ps4controller.jpg',
+        'address': '159 Notreal Boulevard',
+        'status': 'Used'
+    },
+    {
+        'owner': 'Mark',
+        'type': 'T-shirt',
+        'name': 'Balenciaga t-shirt',
+        'price': 1150,
+        'description': 'Destroyed Flatground T-shirt in black and white vintage jersey.',
+        'size': 'Medium',
+        'image': 'default_product_img/balenciaga-tshirt.jpg',
+        'address': '133 Nowhere Street',
+        'status': 'New'
+    },
 ]
 
 
