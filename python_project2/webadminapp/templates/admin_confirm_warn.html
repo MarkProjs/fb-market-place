@@ -4,12 +4,12 @@
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Warn User</legend>
+                <legend>Warn User</legend>
                 <h2> Issue a Warning to "{{ user.username }}" ?</h2>
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-outline-danger" type="submit" name="target">Warn</button>
-                <a class="btn btn-outline-secondary" href="{% url 'webadminapp-manage-users' %}">Cancel</a>
+                <button class="btn block-btn" type="submit" name="target">Warn</button>
+                <a class="btn btn-secondary" href="{% url 'webadminapp-manage-users' %}">Cancel</a>
             </div>
         </form>
     </div>
