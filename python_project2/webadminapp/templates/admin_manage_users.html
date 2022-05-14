@@ -2,7 +2,7 @@
 {% load user_extras %}
 {% block content %}
     <h1> Manage Users </h1>
-    <p><a class="btn btn-outline-info" href="{% url 'webadminapp-admin-dashboard' %}">Back to Dashboard</a></p>
+    <p><a class="btn" href="{% url 'webadminapp-admin-dashboard' %}">Back to Dashboard</a></p>
          {% for user in users %}
             {% if user|has_group:"Members" %}
                 <article class="media content-section">
@@ -22,29 +22,29 @@
         {% if is_paginated %}
             <div class="pagination">
             {% if page_obj.has_previous %}
-                <a class=" btn btn-outline-info mb-4" href="?page=1" > « </a>
-                <a class=" btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}" > ‹ </a>
+                <a class=" btn " href="?page=1" > « </a>
+                <a class=" btn " href="?page={{ page_obj.previous_page_number }}" > ‹ </a>
             {% else %}
-                <a class=" btn btn-outline-info mb-4 disabled" > « </a>
-                <a class=" btn btn-outline-info mb-4 disabled" > ‹ </a>
+                <a class=" btn disabled" > « </a>
+                <a class=" btn disabled" > ‹ </a>
             {% endif %}
 
             <div class="pages">
             {% for num in page_obj.paginator.page_range %}
                 {% if page_obj.number == num %}
-                    <a class="btn btn-info mb-4 currently" href="?page={{ num }}">{{ num }}</a>
+                    <a class="btn currently" href="?page={{ num }}">{{ num }}</a>
                 {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                    <a class="btn btn-outline-info mb-4" href="?page={{ num }}" > {{ num }}</a>
+                    <a class="btn " href="?page={{ num }}" > {{ num }}</a>
                 {% endif %}
             {% endfor %}
             </div>
 
             {% if page_obj.has_next %}
-                <a class=" btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}" > › </a>
-                <a class=" btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}" > » </a>
+                <a class=" btn " href="?page={{ page_obj.next_page_number }}" > › </a>
+                <a class=" btn " href="?page={{ page_obj.paginator.num_pages }}" > » </a>
             {% else %}
-                <a class=" btn btn-outline-info mb-4 disabled" > › </a>
-                <a class=" btn btn-outline-info mb-4 disabled" > » </a>
+                <a class=" btn disabled" > › </a>
+                <a class=" btn disabled" > » </a>
             {% endif %}
         </div>
         {% endif %}
