@@ -214,6 +214,7 @@ border-bottom: 1px solid #BBB;
 .options{
     display: flex;
     justify-content: space-between;
+    margin-bottom: 10px;
 }
 
 .dropdown {
@@ -460,6 +461,7 @@ article p:nth-last-child(1) {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    height: 117px;
     max-height: 117px;
 }
 
@@ -508,6 +510,7 @@ max-width: 96.666667% !important;
 .content-grid {
     display: flex;
     flex-direction: column;
+    height: 100% !important;
     max-height: none !important;
     max-width: none !important;
 }
