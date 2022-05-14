@@ -29,7 +29,7 @@
         <article class="media content-section">
           <div class="media-body">
             <div class="article-metadata">
-              <a class="mr-2" href="{% url 'user-products' product.owner.username %}">{{ product.owner }}</a>
+              <a href="{% url 'user-products' product.owner.username %}">{{ product.owner }}</a>
               <small class="text-muted">{{ product.size }}</small>
             </div>
               <div class="content">
@@ -52,29 +52,29 @@
     {% if is_paginated %}
     <div class="pagination">
         {% if page_obj.has_previous %}
-            <a class=" btn btn-outline-info mb-4" href="{% my_url 1 'page' request.GET.urlencode %}" > « </a>
-            <a class=" btn btn-outline-info mb-4" href="{% my_url page_obj.previous_page_number 'page' request.GET.urlencode %}" > ‹ </a>
+            <a class=" btn " href="{% my_url 1 'page' request.GET.urlencode %}" > « </a>
+            <a class=" btn " href="{% my_url page_obj.previous_page_number 'page' request.GET.urlencode %}" > ‹ </a>
         {% else %}
-            <a class=" btn btn-outline-info mb-4 disabled" > « </a>
-            <a class=" btn btn-outline-info mb-4 disabled" > ‹ </a>
+            <a class=" btn disabled" > « </a>
+            <a class=" btn disabled" > ‹ </a>
         {% endif %}
 
         <div class="pages">
         {% for num in page_obj.paginator.page_range %}
             {% if page_obj.number == num %}
-                <a class="btn btn-info mb-4 currently" href="{% my_url num 'page' request.GET.urlencode %}">{{ num }}</a>
+                <a class="btn currently" href="{% my_url num 'page' request.GET.urlencode %}">{{ num }}</a>
             {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                <a class="btn btn-outline-info mb-4" href="{% my_url num 'page' request.GET.urlencode %}" > {{ num }}</a>
+                <a class="btn mb-4" href="{% my_url num 'page' request.GET.urlencode %}" > {{ num }}</a>
             {% endif %}
         {% endfor %}
         </div>
 
          {% if page_obj.has_next %}
-            <a class=" btn btn-outline-info mb-4" href="{% my_url page_obj.next_page_number 'page' request.GET.urlencode %}" > › </a>
-            <a class=" btn btn-outline-info mb-4" href="{% my_url page_obj.paginator.num_pages 'page' request.GET.urlencode %}" > » </a>
+            <a class=" btn " href="{% my_url page_obj.next_page_number 'page' request.GET.urlencode %}" > › </a>
+            <a class=" btn " href="{% my_url page_obj.paginator.num_pages 'page' request.GET.urlencode %}" > » </a>
          {% else %}
-            <a class=" btn btn-outline-info mb-4 disabled" > › </a>
-            <a class=" btn btn-outline-info mb-4 disabled" > » </a>
+            <a class=" btn disabled" > › </a>
+            <a class=" btn disabled" > » </a>
         {% endif %}
     </div>
     {% endif %}
