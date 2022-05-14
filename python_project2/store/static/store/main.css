@@ -269,7 +269,14 @@ border-bottom: 1px solid #BBB;
   height: 100%;
   margin: 0px;
   opacity: 0;
-  cursor:pointer;
+}
+
+.dropdown input[type=checkbox]:hover{
+    cursor: pointer;
+}
+
+.dropdown input[type=checkbox]:checked:hover{
+    cursor: default;
 }
 
 .dropdown input[type=checkbox]:checked {
@@ -566,6 +573,20 @@ legend {
   background-image: none;
 }
 
+main form .btn {
+    color: #17a2b8;
+background-color: transparent;
+background-image: none;
+border-color: #17a2b8;
+padding: .375rem .75rem;
+}
+
+main form .btn:hover {
+color: #fff;
+background-color: #17a2b8;
+border-color: #17a2b8;
+}
+
 article .btn{
     margin-bottom: 0 !important;
 }
@@ -657,6 +678,11 @@ article .btn{
 
 .content-section {
     line-height: 1.5;
+    background: rgba(255,255,255,0.7);
+    padding: 10px 20px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    margin-bottom: 20px;
 }
 
 .article-title {

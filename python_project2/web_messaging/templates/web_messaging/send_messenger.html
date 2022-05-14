@@ -6,7 +6,9 @@
         <form method="POST">
             {% csrf_token %}
             {{ msg|crispy }}
-            <input type="submit" value="Send message">
+<!--            <div class="form-group">-->
+                <input class="btn" type="submit" value="Send message">
+<!--            </div>-->
         </form>
     </div>
 {% endblock content %}
