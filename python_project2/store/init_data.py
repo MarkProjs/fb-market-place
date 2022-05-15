@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User, Group
 from django.db.models import Avg
 from .models import Product, Comment
+from web_messaging.models import Message
 import random as rnd
 
 
@@ -333,6 +334,12 @@ def init_data():
     )
 
     update_ratings(obj_lst[3])
+
+    Message.objects.create(
+        sender=User.objects.get(username='Jeremy'),
+        receiver=User.objects.get(username='nasr'),
+        message='Hello Sir'
+    )
 
 
 
