@@ -8,7 +8,17 @@
             <article class="media content-section">
               <div class="media-body">
                 <div class="article-metadata">
-                  <a href="{% url 'user-products' user.username %}">{{ user.username }}</a>
+                    {% if user|has_group:"Members" %}
+                    <strong>Member</strong>
+                    {% elif user|has_group:"Admin_item_grp"%}
+                    <strong>Item Manager</strong>
+                    {% elif user|has_group:"Admin_user_grp"%}
+                    <strong>User Manager</strong>
+                    {% else %}
+                    <strong>Super Admin</strong>
+                    {% endif %}
+                    <br>
+                    <a href="{% url 'user-products' user.username %}">{{ user.username }}</a>
                   <small class="text-muted">User id: {{ user.id }}</small>
                 </div>
                   <h2><a class="article-title" href="">Active: {{ user.is_active }}</a></h2>
