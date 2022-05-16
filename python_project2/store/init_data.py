@@ -341,6 +341,24 @@ def init_data():
         message='Hello Sir'
     )
 
+    Message.objects.create(
+        sender=User.objects.get(username='Jeremy'),
+        receiver=User.objects.get(username='Jacky'),
+        message='Yo Slide me your stocks bruh, I need them for my collection'
+    )
+
+    Message.objects.create(
+        sender=User.objects.get(username='Denis'),
+        receiver=User.objects.get(username='Jacky'),
+        message='Hello, I would like to negotiate the price for the laptop'
+    )
+
+    Message.objects.create(
+        sender=User.objects.get(username='Manny'),
+        receiver=User.objects.get(username='Jacky'),
+        message='I would like to inquire on the specs of your laptop that you are selling'
+    )
+
 
 
 
