@@ -259,3 +259,7 @@ def api_product_delete(req, pk):
     this_product = get_product(pk)
     this_product.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+def go_to_heroku(request):
+    return redirect('http://dw-42022-prj-grp6-tat.herokuapp.com')

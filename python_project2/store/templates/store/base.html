@@ -19,9 +19,11 @@
     <header class="site-header">
             <ul class="navbar-nav mr-auto navigator">
                 <li><a class="nav-item nav-link" href="{% url 'store-home' %}">JJAM STORE</a></li>
+                <li><a class="nav-item nav-link" href="{% url 'heroku'%}">Heroku URL</a></li>
                 {% if request.user|has_group:"Admin_user_grp" or request.user|has_group:"Admin_item_grp" or request.user|has_group:"Admin_super_grp" %}
                     <li><a class="nav-item nav-link" href="{% url 'webadminapp-admin-dashboard' %}">Admin Dashboard</a></li>
                 {% endif %}
+
             </ul>
             <ul class="navbar-nav">
                 {% if user.is_authenticated %}
