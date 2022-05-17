@@ -31,7 +31,7 @@ urlpatterns = [
     path('api/<int:pk>/product-detail', views.api_product_detail, name='api_product_detail'),
     path('api/<int:pk>/product-edit', views.api_product_edit, name='api_product_edit'),
     path('api/<int:pk>/product-delete', views.api_product_delete, name='api_product_delete'),
-
+    path('heroku', views.go_to_heroku, name='heroku'),
 ]
 
 
