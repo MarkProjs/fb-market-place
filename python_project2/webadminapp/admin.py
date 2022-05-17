@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group, Permission, User
+from store.init_data import init_data
 
 
 def init_groups():
@@ -55,3 +56,6 @@ def init_groups():
     super_perm = Permission.objects.all()
     for perm in super_perm:
         Admin_super_grp.permissions.add(perm)
+
+    if not User.objects.filter(groups__name='Members').exists():
+        init_data()

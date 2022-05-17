@@ -241,7 +241,6 @@ product_lst = [
     },
 ]
 
-group_member = Group.objects.get(name="Members")
 obj_lst = []
 
 
@@ -252,6 +251,8 @@ def update_ratings(prod):
 
 
 def init_data():
+    group_member = Group.objects.get(name="Members")
+
     # Initialize Members
     for user in user_lst:
         new_user = User.objects.create_user(username=user, password='123')

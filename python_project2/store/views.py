@@ -18,7 +18,6 @@ from .filters import ProductFilter
 from django.shortcuts import redirect
 from webadminapp.admin import init_groups
 from django.core.paginator import Paginator
-from .init_data import init_data
 
 
 # Create your views here.
@@ -41,10 +40,6 @@ class ProductListView(ListView):
     def get_context_data(self, *args, **kwargs):
         # Initialize Groups, and Admin Users
         init_groups()
-
-        # Initialize Data
-        if not User.objects.filter(groups__name='Members').exists():
-            init_data()
 
         context = super(ProductListView, self).get_context_data(*args, **kwargs)
         if self.request.user.is_authenticated:
