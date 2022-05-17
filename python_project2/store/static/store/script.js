@@ -15,12 +15,14 @@ const articles = document.getElementsByClassName('articles')
 const contentSection = document.getElementsByClassName('content-section')
 const content = document.getElementsByClassName('content')
 const contentImage = document.getElementsByClassName('content-image')
+const contentText = document.getElementsByClassName('content-text')
 
 var oldCol = ''
 var oldArticles = ''
 var oldContentSection = ''
 var oldContent = ''
 var oldContentImage = ''
+var oldContentText = ''
 
 if(checkbox != null){
     checkbox.addEventListener('change', (event) => {
@@ -46,6 +48,7 @@ function addAll(){
   oldContentSection = addClass(contentSection, 'content-section-grid')
   oldContent = addClass(content, 'content-grid')
   oldContentImage = addClass(contentImage, 'content-image-grid')
+  oldContentText = addClass(contentText, 'content-text-grid')
 }
 
 function resetClass(classList, oldClass){
@@ -60,6 +63,7 @@ function resetAll(){
   resetClass(contentSection, oldContentSection)
   resetClass(content, oldContent)
   resetClass(contentImage, oldContentImage)
+  resetClass(contentText, oldContentText)
 }
 
 // function setup(){

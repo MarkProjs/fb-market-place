@@ -455,6 +455,7 @@ article p {
 
 article p:nth-last-child(1) {
     overflow-y: auto;
+    height: 100%;
 }
 
 .content {
@@ -468,7 +469,7 @@ article p:nth-last-child(1) {
 .content-text{
     display: flex;
     flex-direction: column;
-    max-width: 50%;
+    max-width: 75%;
 }
 
 .content-image {
@@ -523,6 +524,10 @@ max-width: 96.666667% !important;
 
 .content-section-grid p:nth-last-child(1) {
     overflow: unset;
+}
+
+.content-text-grid{
+    max-width: 100% !important;
 }
 
 .content-image-grid {
